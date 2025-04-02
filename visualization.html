@@ -1,11 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Data Visualization | Shekhar Sharan Goyal</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Plotly + PapaParse -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+  <!-- Leaflet CSS/JS (for map) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; 
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, input[type='checkbox'] {
+      margin: 0 0.5rem 1rem 0;
+    }
+    #plot {
+      width:100%;
+      height:600px;
+      margin-top:2rem;
+    }
+    #map {
+      width: 100%;
+      height: 600px;
+      margin: 2rem 0;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+    }
+    .slider-container {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -19,72 +96,136 @@
       <a href="visualization.html">Visualization</a>
     </nav>
   </header>
-<main style="padding: 2rem;">
-  <h2>Explore Nitrogen Metrics by District</h2>
-  <label for="datasetSelect"><strong>Dataset:</strong></label>
-  <select id="datasetSelect">
-    <option value="uncertainty">N-Surplus + Uncertainty</option>
-    <option value="components">N Components Breakdown</option>
-  </select>
 
-  <label for="districtSelect"><strong>District:</strong></label>
-  <select id="districtSelect"></select>
+  <main>
+    <!-- ===================== PLOTLY CHART SECTION ===================== -->
+    <section>
+      <h2>Explore Nitrogen Metrics by District (CSV-based)</h2>
+      <label for="datasetSelect">Dataset:</label>
+      <select id="datasetSelect">
+        <option value="uncertainty">N-Surplus + Uncertainty</option>
+        <option value="components">N Components Breakdown</option>
+      </select>
 
-  <label for="variableSelect"><strong>Variables:</strong></label>
-  <select id="variableSelect" multiple size="5" style="width:300px;"></select>
+      <label for="districtSelect">District:</label>
+      <select id="districtSelect"></select>
 
-  <div id="plot" style="width:100%;height:600px;margin-top:2rem;"></div>
+      <label for="variableSelect">Variables:</label>
+      <select id="variableSelect" multiple size="5" style="width:300px;"></select>
 
+      <!-- Extra Features -->
+      <br/>
+      <input type="checkbox" id="uncertaintyCheck"/>
+      <label for="uncertaintyCheck">Show 5%-95% Uncertainty Band</label>
+
+      <label for="chartTypeSelect">Chart Type:</label>
+      <select id="chartTypeSelect">
+        <option value="scatter">Line</option>
+        <option value="bar">Bar</option>
+      </select>
+
+      <div id="plot"></div>
+    </section>
+
+    <!-- ===================== LEAFLET MAP SECTION ===================== -->
+    <section>
+      <h2>Map-based Time Slider (GeoJSON-based)</h2>
+      <p>This map shows how N Surplus changes by district over time.</p>
+
+      <!-- The map container -->
+      <div id="map"></div>
+
+      <!-- Year slider + label -->
+      <div class="slider-container">
+        <label for="yearSlider">Year:</label>
+        <input
+          type="range"
+          id="yearSlider"
+          min="1966"
+          max="2020"
+          step="1"
+          value="1966"
+          oninput="updateYear(this.value)"
+        />
+        <span id="yearLabel">1966</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Shekhar Sharan Goyal</p>
+  </footer>
+
+  <!-- ===================== JAVASCRIPT FOR PLOTLY SECTION ===================== -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script>
+    // Store references to CSV files
     const files = {
       uncertainty: 'nutrient_budjet_uncertainity_12_values_nca.csv',
       components: 'N_surplus_components.csv'
     };
-
     let datasets = {};
-    let current = 'uncertainty';
+    let currentDatasetKey = 'uncertainty';
 
-    // Load both datasets first
-    Promise.all(Object.entries(files).map(([key, url]) =>
-      fetch(url).then(r => r.text()).then(txt => {
-        datasets[key] = Papa.parse(txt, { header: true, skipEmptyLines: true }).data;
-      })
-    )).then(initializeUI);
+    // 1) Load both CSVs concurrently
+    Promise.all(
+      Object.entries(files).map(([key, url]) =>
+        fetch(url)
+          .then(r => r.text())
+          .then(txt => {
+            datasets[key] = Papa.parse(txt, { header: true, skipEmptyLines: true }).data;
+          })
+      )
+    ).then(initUI);
 
-    function initializeUI() {
+    function initUI() {
+      // Populate dataset dropdown
       const datasetSelect = document.getElementById("datasetSelect");
-      datasetSelect.addEventListener("change", () => {
-        current = datasetSelect.value;
+      datasetSelect.onchange = () => {
+        currentDatasetKey = datasetSelect.value;
         populateDistricts();
-      });
+      };
+
+      // Initialize with default dataset
       populateDistricts();
+
+      // Also handle changes to the uncertainty checkbox
+      document.getElementById("uncertaintyCheck").onchange = reRenderPlot;
+      // And chart type changes
+      document.getElementById("chartTypeSelect").onchange = reRenderPlot;
     }
 
     function populateDistricts() {
-      const data = datasets[current];
+      const data = datasets[currentDatasetKey];
+      // Extract unique Dist Name
       const districts = [...new Set(data.map(d => d["Dist Name"]))].sort();
+
       const districtSelect = document.getElementById("districtSelect");
-      districtSelect.innerHTML = "";
+      districtSelect.innerHTML = ""; // clear old
       districts.forEach(d => {
         const option = document.createElement("option");
         option.value = d;
         option.textContent = d;
         districtSelect.appendChild(option);
       });
+
       districtSelect.onchange = () => populateVariables(districtSelect.value);
+      // Auto-select first district
       populateVariables(districts[0]);
     }
 
     function populateVariables(district) {
-      const data = datasets[current];
+      const data = datasets[currentDatasetKey];
       const filtered = data.filter(d => d["Dist Name"] === district);
       const variableSelect = document.getElementById("variableSelect");
       variableSelect.innerHTML = "";
 
-      const sample = filtered[0];
+      if (!filtered.length) return;
+
+      // Exclude these from variable list
       const ignore = ["State Name", "Dist Name", "Year"];
+      const sample = filtered[0];
       const keys = Object.keys(sample).filter(k => !ignore.includes(k));
 
       keys.forEach(k => {
@@ -94,22 +235,64 @@
         variableSelect.appendChild(option);
       });
 
-      variableSelect.onchange = () => renderPlot(district, Array.from(variableSelect.selectedOptions).map(o => o.value));
-      renderPlot(district, [keys[0]]);
+      variableSelect.onchange = () => reRenderPlot();
+      // Default select the first variable
+      variableSelect.selectedIndex = 0;
+      reRenderPlot();
     }
 
-    function renderPlot(district, variables) {
-      const data = datasets[current];
+    // Re-renders Plot after any UI change
+    function reRenderPlot() {
+      const districtSelect = document.getElementById("districtSelect");
+      const variableSelect = document.getElementById("variableSelect");
+      const data = datasets[currentDatasetKey];
+      const district = districtSelect.value;
       const filtered = data.filter(d => d["Dist Name"] === district);
       const years = filtered.map(d => +d["Year"]);
 
-      const traces = variables.map(v => ({
-        x: years,
-        y: filtered.map(d => +d[v]),
-        name: v.replace(/_/g, ' '),
-        mode: 'lines+markers',
-        type: 'scatter'
-      }));
+      // Get selected variables
+      const vars = Array.from(variableSelect.selectedOptions).map(o => o.value);
+      const chartType = document.getElementById("chartTypeSelect").value;
+
+      // Prepare Plotly traces
+      const traces = vars.map(v => {
+        const yVals = filtered.map(d => +d[v]);
+        return {
+          x: years,
+          y: yVals,
+          name: v.replace(/_/g, ' '),
+          mode: (chartType === 'scatter') ? 'lines+markers' : undefined,
+          type: chartType
+        };
+      });
+
+      // Optionally add uncertainty band if user wants it
+      const showUncert = document.getElementById("uncertaintyCheck").checked;
+      if (showUncert && vars.length === 1) {
+        // We'll guess there's percentile_5 and percentile_95 columns, e.g. "percentile_5_N_budjet_kg_ha"
+        // Example: the user selected "mean_N_budjet_kg_ha"; let's derive p5/p95
+        const mainVar = vars[0];
+        const p5Var = mainVar.replace("mean_", "percentile_5_");
+        const p95Var = mainVar.replace("mean_", "percentile_95_");
+
+        // Check if columns exist
+        if (filtered[0][p5Var] !== undefined && filtered[0][p95Var] !== undefined) {
+          const p5Vals = filtered.map(d => +d[p5Var]);
+          const p95Vals = filtered.map(d => +d[p95Var]);
+          const band = {
+            x: [...years, ...years.slice().reverse()],
+            y: [...p95Vals, ...p5Vals.slice().reverse()],
+            fill: 'toself',
+            fillcolor: 'rgba(0, 119, 170, 0.2)',
+            line: { color: 'transparent' },
+            name: '5–95% Range',
+            type: 'scatter'
+          };
+          traces.unshift(band); // push behind the mean
+        } else {
+          alert("No matching percentile columns found for uncertainty band.");
+        }
+      }
 
       const layout = {
         title: `Nutrient Data for ${district}`,
@@ -121,9 +304,83 @@
       Plotly.newPlot("plot", traces, layout);
     }
   </script>
-</main>
 
+  <!-- ===================== JAVASCRIPT FOR LEAFLET MAP ===================== -->
+  <script>
+  // Initialize the Leaflet map
+  const map = L.map('map').setView([22.0, 78.0], 5); // center on India
+  // OSM base layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 14,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
 
-  <footer><p>&copy; 2025 Shekhar Sharan Goyal</p></footer>
+  let geoLayer; // Will store the geojson layer
+  let currentYear = 1966; // Starting year
+
+  // Fetch your merged GeoJSON with N_by_year
+  fetch('india_nsurplus_time.geojson')
+    .then(res => res.json())
+    .then(geojson => {
+      geoLayer = L.geoJSON(geojson, {
+        style: styleFeature,
+        onEachFeature: function(feature, layer) {
+          layer.bindPopup(generatePopup(feature));
+        }
+      }).addTo(map);
+    })
+    .catch(err => console.error("Error loading GeoJSON:", err));
+
+  // Styles each feature based on the currentYear in N_by_year
+  function styleFeature(feature) {
+    const nVal = getNVal(feature);
+    return {
+      color: '#555',
+      weight: 1,
+      fillColor: getColor(nVal),
+      fillOpacity: 0.6
+    };
+  }
+
+  // Extract the N Surplus for the currentYear from feature.properties.N_by_year
+  function getNVal(feature) {
+    const dataObj = feature.properties.N_by_year || {};
+    return dataObj[currentYear] || 0;
+  }
+
+  // Basic color ramp for N Surplus
+  function getColor(d) {
+    return d > 200 ? '#800026' :
+           d > 150 ? '#BD0026' :
+           d > 100 ? '#E31A1C' :
+           d > 50  ? '#FC4E2A' :
+           d > 20  ? '#FD8D3C' :
+           d > 0   ? '#FEB24C' :
+                     '#FFEDA0';
+  }
+
+  // Called when user moves the slider
+  function updateYear(y) {
+    currentYear = y;
+    document.getElementById("yearLabel").textContent = y;
+
+    // Re-style each district
+    if (geoLayer) {
+      geoLayer.eachLayer(layer => {
+        layer.setStyle(styleFeature(layer.feature));
+        layer.bindPopup(generatePopup(layer.feature));
+      });
+    }
+  }
+
+  // Generates dynamic popup
+  function generatePopup(feature) {
+    const district = feature.properties.Dist_Name || "Unknown";
+    const val = getNVal(feature).toFixed(2);
+    return `<strong>${district}</strong><br>
+            Year: ${currentYear}<br>
+            N Surplus: ${val} kg/ha`;
+  }
+  </script>
 </body>
 </html>
