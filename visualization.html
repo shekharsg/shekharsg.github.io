@@ -19,71 +19,110 @@
       <a href="visualization.html">Visualization</a>
     </nav>
   </header>
- <main>
-  <h2>Select District to Explore Nitrogen Budget</h2>
+<main style="padding: 2rem;">
+  <h2>Explore Nitrogen Metrics by District</h2>
+  <label for="datasetSelect"><strong>Dataset:</strong></label>
+  <select id="datasetSelect">
+    <option value="uncertainty">N-Surplus + Uncertainty</option>
+    <option value="components">N Components Breakdown</option>
+  </select>
+
+  <label for="districtSelect"><strong>District:</strong></label>
   <select id="districtSelect"></select>
-  <div id="plot" style="width:100%;height:600px;"></div>
+
+  <label for="variableSelect"><strong>Variables:</strong></label>
+  <select id="variableSelect" multiple size="5" style="width:300px;"></select>
+
+  <div id="plot" style="width:100%;height:600px;margin-top:2rem;"></div>
 
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script>
-    // Load CSV from GitHub or locally
-    fetch('nutrient_budjet_uncertainity_12_values_nca.csv')
-      .then(response => response.text())
-      .then(csvText => {
-        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-        const data = parsed.data;
+    const files = {
+      uncertainty: 'nutrient_budjet_uncertainity_12_values_nca.csv',
+      components: 'N_surplus_components.csv'
+    };
 
-        // Extract unique districts
-        const districts = [...new Set(data.map(d => d["Dist Name"]))].sort();
-        const select = document.getElementById("districtSelect");
-        districts.forEach(d => {
-          const option = document.createElement("option");
-          option.value = d;
-          option.textContent = d;
-          select.appendChild(option);
-        });
+    let datasets = {};
+    let current = 'uncertainty';
 
-        select.addEventListener("change", () => renderPlot(select.value, data));
-        renderPlot(districts[0], data); // Initial render
+    // Load both datasets first
+    Promise.all(Object.entries(files).map(([key, url]) =>
+      fetch(url).then(r => r.text()).then(txt => {
+        datasets[key] = Papa.parse(txt, { header: true, skipEmptyLines: true }).data;
+      })
+    )).then(initializeUI);
 
-        function renderPlot(district, data) {
-          const filtered = data.filter(d => d["Dist Name"] === district && d["Year"] && d["mean_N_budjet_kg_ha"]);
-          const years = filtered.map(d => +d["Year"]);
-          const mean = filtered.map(d => +d["mean_N_budjet_kg_ha"]);
-          const p5 = filtered.map(d => +d["percentile_5_N_budjet_kg_ha"]);
-          const p95 = filtered.map(d => +d["percentile_95_N_budjet_kg_ha"]);
-
-          const traceMean = {
-            x: years,
-            y: mean,
-            mode: 'lines+markers',
-            name: 'Mean N Surplus (kg/ha)',
-            line: { color: '#0077aa' }
-          };
-
-          const traceBand = {
-            x: [...years, ...years.slice().reverse()],
-            y: [...p95, ...p5.slice().reverse()],
-            fill: 'toself',
-            fillcolor: 'rgba(0, 119, 170, 0.2)',
-            line: { color: 'transparent' },
-            name: 'Uncertainty Range (5–95%)',
-            type: 'scatter'
-          };
-
-          const layout = {
-            title: `Nutrient Surplus for ${district}`,
-            xaxis: { title: "Year" },
-            yaxis: { title: "Nitrogen Budget (kg/ha)" },
-            showlegend: true
-          };
-
-          Plotly.newPlot("plot", [traceBand, traceMean], layout);
-        }
+    function initializeUI() {
+      const datasetSelect = document.getElementById("datasetSelect");
+      datasetSelect.addEventListener("change", () => {
+        current = datasetSelect.value;
+        populateDistricts();
       });
+      populateDistricts();
+    }
+
+    function populateDistricts() {
+      const data = datasets[current];
+      const districts = [...new Set(data.map(d => d["Dist Name"]))].sort();
+      const districtSelect = document.getElementById("districtSelect");
+      districtSelect.innerHTML = "";
+      districts.forEach(d => {
+        const option = document.createElement("option");
+        option.value = d;
+        option.textContent = d;
+        districtSelect.appendChild(option);
+      });
+      districtSelect.onchange = () => populateVariables(districtSelect.value);
+      populateVariables(districts[0]);
+    }
+
+    function populateVariables(district) {
+      const data = datasets[current];
+      const filtered = data.filter(d => d["Dist Name"] === district);
+      const variableSelect = document.getElementById("variableSelect");
+      variableSelect.innerHTML = "";
+
+      const sample = filtered[0];
+      const ignore = ["State Name", "Dist Name", "Year"];
+      const keys = Object.keys(sample).filter(k => !ignore.includes(k));
+
+      keys.forEach(k => {
+        const option = document.createElement("option");
+        option.value = k;
+        option.textContent = k;
+        variableSelect.appendChild(option);
+      });
+
+      variableSelect.onchange = () => renderPlot(district, Array.from(variableSelect.selectedOptions).map(o => o.value));
+      renderPlot(district, [keys[0]]);
+    }
+
+    function renderPlot(district, variables) {
+      const data = datasets[current];
+      const filtered = data.filter(d => d["Dist Name"] === district);
+      const years = filtered.map(d => +d["Year"]);
+
+      const traces = variables.map(v => ({
+        x: years,
+        y: filtered.map(d => +d[v]),
+        name: v.replace(/_/g, ' '),
+        mode: 'lines+markers',
+        type: 'scatter'
+      }));
+
+      const layout = {
+        title: `Nutrient Data for ${district}`,
+        xaxis: { title: "Year" },
+        yaxis: { title: "kg/ha" },
+        legend: { orientation: "h" }
+      };
+
+      Plotly.newPlot("plot", traces, layout);
+    }
   </script>
 </main>
+
 
   <footer><p>&copy; 2025 Shekhar Sharan Goyal</p></footer>
 </body>
