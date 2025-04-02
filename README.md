@@ -1,1 +1,0 @@
-# shekharsg.github.io
