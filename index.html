@@ -1,30 +1,188 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Shekhar Sharan Goyal | Home</title>
+  <title>Shekhar Sharan Goyal | Earth Scientist</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background: url('images/earth-bg.jpg') no-repeat center center/cover;
+      color: white;
+      padding: 6rem 2rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem;
+      background: #ffffff;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0077aa;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #0077aa;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #005c88;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 3rem 2rem;
+      background: linear-gradient(to right, #eef2f3, #ffffff);
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      color: #0077aa;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      background: #111;
+      color: white;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 1rem auto;
+      display: block;
+      border: 4px solid #0077aa;
+    }
+  </style>
 </head>
 <body>
+
   <header>
     <h1>Shekhar Sharan Goyal</h1>
-    <p>Research Scientist | UFZ Leipzig</p>
+    <p>I'm an Earth Scientist working on the Ecohydrological Food-Energy-Water Nexus</p>
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="projects.html">Projects</a>
       <a href="publications.html">Publications</a>
+      <a href="visualization.html">Visualization</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
-  <main>
-    <section><a href="Shekhar_cv.pdf" class="btn">Download CV (PDF)</a>
-      <h2>Welcome!</h2>
-      <p>I am a research scientist working at the interface of agriculture, ecohydrology, and sustainability.</p>
-      <img src="images/profile.jpg" alt="Shekhar's profile" />
-    </section>
-  </main>
-  <footer><p>&copy; 2025 Shekhar Sharan Goyal</p></footer>
+
+  <section class="hero">
+    <img src="images/profile.jpg" alt="Shekhar's Profile Picture" class="profile-img" />
+    <h2>"To Nutrient and Beyond!"</h2>
+    <p>
+      I specialize in nutrient pollution, sustainable agriculture, and environmental impacts of trade.  
+      My research lies at the interface of ecohydrology, food security, and water resource management.
+    </p>
+    <a href="Shekhar_cv.pdf" class="btn">Download CV (PDF)</a>
+  </section>
+
+  <section class="content">
+    <div class="card">
+      <h3>🎓 Education</h3>
+      <p>
+        <strong>Doctorate (2024):</strong> IIT Gandhinagar<br>
+        <strong>Masters:</strong> IIT Kharagpur<br>
+        <strong>Focus:</strong> Nitrogen Surplus, Water Pollution, Ecohydrology
+      </p>
+    </div>
+    <div class="card">
+      <h3>🔬 Fields of Research</h3>
+      <p>
+        Ecohydrology, Nutrient Cycles, Food Sustainability, Sustainable Trade, Natural Resource Management,
+        Climate-Driven Stream Temperature Modeling
+      </p>
+    </div>
+    <div class="card">
+      <h3>📘 Publications</h3>
+      <p>
+        Peer-reviewed articles in <em>Nature Communications Earth & Environment</em>,
+        <em>Scientific Data</em>, and more. See full list on the <a href="publications.html">Publications</a> page.
+      </p>
+    </div>
+    <div class="card">
+      <h3>📬 Contact</h3>
+      <p>
+        Email: goyal_shekhar@iitgn.ac.in<br>
+        Phone: +91 7477791222<br>
+        <a href="https://www.linkedin.com/in/shekhar-goyal-2b0676131/" target="_blank">LinkedIn</a> |
+        <a href="#">Twitter</a>
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Shekhar Sharan Goyal | Earth Scientist</p>
+  </footer>
+
 </body>
 </html>
