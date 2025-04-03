@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Data Visualization | Shekhar Sharan Goyal</title>
+  <title>GeoJSON Map & Time-Series</title>
 
-  <!-- Plotly + PapaParse -->
+  <!-- Plotly (only needed if you want the time series chart) -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
 
   <!-- Leaflet CSS/JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <style>
-    /* Basic reset & layout */
     * { box-sizing: border-box; }
     body {
       margin: 0; 
@@ -25,15 +23,9 @@
       background: #333;
       color: #fff;
       padding: 1rem;
+      text-align: center;
     }
     header h1 { margin: 0; }
-    nav a {
-      color: #fff;
-      margin: 0 0.5rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover { text-decoration: underline; }
 
     main {
       max-width: 1200px;
@@ -43,29 +35,20 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 1rem 2rem;
     }
-    h2 { margin-top: 0; }
-    label { font-weight: bold; }
-    select, input[type='checkbox'] {
-      margin: 0 0.5rem 1rem 0;
-    }
-    #plot {
-      width:100%;
-      height:600px;
-      margin-top:1rem;
-    }
-    /* Leaflet map styling */
+
     #map {
       width: 100%;
       height: 600px;
-      margin: 2rem 0;
+      margin: 1rem 0;
       border: 2px solid #ddd;
       border-radius: 6px;
     }
-    /* Year slider styling */
+
     .slider-container {
-      margin-top: 1rem;
       text-align: center;
+      margin-bottom: 1rem;
     }
+
     /* Color Legend for Leaflet map */
     .legend {
       background: white;
@@ -82,11 +65,11 @@
       opacity: 0.7;
     }
 
-    /* Container for the timeseries chart from GeoJSON clicks */
+    /* Timeseries chart container */
     #districtTimeseries {
       width: 100%;
       height: 600px;
-      margin: 1rem 0;
+      margin-top: 1rem;
     }
 
     footer {
@@ -100,249 +83,73 @@
 
 <body>
   <header>
-    <h1>Interactive Visualizations</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="publications.html">Publications</a>
-      <a href="contact.html">Contact</a>
-      <a href="visualization.html">Visualization</a>
-    </nav>
+    <h1>Interactive Map & Time-Series</h1>
   </header>
 
   <main>
-    <!-- ============ PLOTLY CHART SECTION (CSV-based) ============ -->
-    <section>
-      <h2>Explore Nitrogen Metrics by District (CSV-based)</h2>
-      <label for="datasetSelect">Dataset:</label>
-      <select id="datasetSelect">
-        <option value="uncertainty">N-Surplus + Uncertainty</option>
-        <option value="components">N Components Breakdown</option>
-      </select>
+    <h2>Map-based N Surplus Visualization</h2>
+    <p>Select a year below, then click on any district to see its full N Surplus time series.</p>
 
-      <label for="districtSelect">District:</label>
-      <select id="districtSelect"></select>
+    <!-- Leaflet map -->
+    <div id="map"></div>
 
-      <label for="variableSelect">Variables:</label>
-      <select id="variableSelect" multiple size="5" style="width:300px;"></select>
+    <!-- Year slider -->
+    <div class="slider-container">
+      <label for="yearSlider"><strong>Year:</strong></label>
+      <input
+        type="range"
+        id="yearSlider"
+        min="1966"
+        max="2020"
+        step="1"
+        value="1966"
+        oninput="updateYear(this.value)"
+      />
+      <span id="yearLabel">1966</span>
+    </div>
 
-      <!-- Extra Options -->
-      <br/>
-      <input type="checkbox" id="uncertaintyCheck"/>
-      <label for="uncertaintyCheck">Show 5%-95% Uncertainty Band</label>
-
-      <label for="chartTypeSelect">Chart Type:</label>
-      <select id="chartTypeSelect">
-        <option value="scatter">Line</option>
-        <option value="bar">Bar</option>
-      </select>
-
-      <div id="plot"></div>
-    </section>
-
-    <!-- ============ LEAFLET MAP SECTION ============ -->
-    <section>
-      <h2>Map-based Time Slider (GeoJSON-based)</h2>
-      <p>Click on any district to see its time-series below. Move the slider to see how the color changes for each year.</p>
-
-      <div id="map"></div>
-
-      <div class="slider-container">
-        <label for="yearSlider">Year:</label>
-        <input
-          type="range"
-          id="yearSlider"
-          min="1966"
-          max="2020"
-          step="1"
-          value="1966"
-          oninput="updateYear(this.value)"
-        />
-        <span id="yearLabel">1966</span>
-      </div>
-
-      <h3>Clicked District Timeseries (GeoJSON-based)</h3>
-      <div id="districtTimeseries"></div>
-    </section>
+    <h3>Clicked District Time-Series</h3>
+    <div id="districtTimeseries"></div>
   </main>
 
   <footer>
     <p>&copy; 2025 Shekhar Sharan Goyal</p>
   </footer>
 
-  <!-- ============ JAVASCRIPT FOR PLOTLY CSV CHARTS ============ -->
   <script>
-    const files = {
-      uncertainty: 'nutrient_budjet_uncertainity_12_values_nca.csv',
-      components: 'N_surplus_components.csv'
-    };
-    let datasets = {};
-    let currentDatasetKey = 'uncertainty';
-
-    // Load both CSVs
-    Promise.all(
-      Object.entries(files).map(([key, url]) =>
-        fetch(url)
-          .then(r => r.text())
-          .then(txt => {
-            datasets[key] = Papa.parse(txt, { header: true, skipEmptyLines: true }).data;
-          })
-      )
-    ).then(initUI);
-
-    function initUI() {
-      const datasetSelect = document.getElementById("datasetSelect");
-      datasetSelect.onchange = () => {
-        currentDatasetKey = datasetSelect.value;
-        populateDistricts();
-      };
-
-      // Uncertainty + chart type
-      document.getElementById("uncertaintyCheck").onchange = reRenderPlot;
-      document.getElementById("chartTypeSelect").onchange = reRenderPlot;
-
-      populateDistricts();
-    }
-
-    function populateDistricts() {
-      const data = datasets[currentDatasetKey];
-      // Dist Name unique
-      const districts = [...new Set(data.map(d => d["Dist Name"]))].sort();
-
-      const districtSelect = document.getElementById("districtSelect");
-      districtSelect.innerHTML = "";
-      districts.forEach(dist => {
-        const opt = document.createElement("option");
-        opt.value = dist;
-        opt.textContent = dist;
-        districtSelect.appendChild(opt);
-      });
-      districtSelect.onchange = () => populateVariables(districtSelect.value);
-      populateVariables(districts[0]); // initial
-    }
-
-    function populateVariables(district) {
-      const data = datasets[currentDatasetKey];
-      const filtered = data.filter(d => d["Dist Name"] === district);
-
-      const variableSelect = document.getElementById("variableSelect");
-      variableSelect.innerHTML = "";
-      if (!filtered.length) return;
-
-      // Grab keys except these
-      const ignore = ["State Name", "Dist Name", "Year"];
-      const sample = filtered[0];
-      const keys = Object.keys(sample).filter(k => !ignore.includes(k));
-
-      keys.forEach(k => {
-        const opt = document.createElement("option");
-        opt.value = k;
-        opt.textContent = k;
-        variableSelect.appendChild(opt);
-      });
-
-      variableSelect.onchange = reRenderPlot;
-      variableSelect.selectedIndex = 0;
-      reRenderPlot();
-    }
-
-    function reRenderPlot() {
-      const data = datasets[currentDatasetKey];
-      const district = document.getElementById("districtSelect").value;
-      const filtered = data.filter(d => d["Dist Name"] === district);
-      const years = filtered.map(d => +d["Year"]);
-
-      const vars = Array.from(document.getElementById("variableSelect").selectedOptions).map(o => o.value);
-      const chartType = document.getElementById("chartTypeSelect").value;
-      const showUncert = document.getElementById("uncertaintyCheck").checked;
-
-      let traces = vars.map((v,i) => {
-        let yVals = filtered.map(d => +d[v]);
-        return {
-          x: years,
-          y: yVals,
-          name: v.replace(/_/g,' '),
-          type: chartType,
-          mode: (chartType === 'scatter') ? 'lines+markers' : undefined,
-          hovertemplate: '%{x}<br>%{y} kg/ha<extra>'+v+'</extra>'
-        };
-      });
-
-      // If user wants uncertainty band, only do so if 1 var is selected
-      if (showUncert && vars.length === 1) {
-        const mainVar = vars[0]; // e.g. 'mean_N_budjet_kg_ha'
-        const p5Var = mainVar.replace('mean_','percentile_5_');
-        const p95Var = mainVar.replace('mean_','percentile_95_');
-
-        if (filtered[0][p5Var] !== undefined && filtered[0][p95Var] !== undefined) {
-          let p5Vals = filtered.map(d => +d[p5Var]);
-          let p95Vals = filtered.map(d => +d[p95Var]);
-          let band = {
-            x: [...years, ...years.slice().reverse()],
-            y: [...p95Vals, ...p5Vals.slice().reverse()],
-            fill: 'toself',
-            fillcolor: 'rgba(0, 119, 170, 0.2)',
-            line: { color: 'transparent' },
-            name: '5–95% Range',
-            type: 'scatter',
-            hoverinfo: 'skip'
-          };
-          traces.unshift(band);
-        } else {
-          alert("No matching percentile columns found for uncertainty band.");
-        }
-      }
-
-      let layout = {
-        title: `Nutrient Data for ${district}`,
-        xaxis: { title: 'Year', tick0: 1966, dtick: 10 },
-        yaxis: { title: 'kg/ha' },
-        legend: { orientation: 'h', y: -0.2 },
-        margin: { l: 60, r: 20, t: 60, b: 60 },
-        barmode: 'group' // group bars for multiple variables
-      };
-
-      Plotly.newPlot('plot', traces, layout);
-    }
-  </script>
-
-  <!-- ============ JAVASCRIPT FOR LEAFLET MAP & TIME SERIES CLICK ============ -->
-  <script>
-    let map = L.map('map').setView([22.0,78.0], 5);
+    // --- Basic Leaflet Setup ---
+    const map = L.map('map').setView([22.0, 78.0], 5); // Center on India
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 14,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    let geoLayer;
     let currentYear = 1966;
+    let geoLayer;
 
-    // 1) Load your final GeoJSON (with "N_by_year" in properties)
+    // Load the merged GeoJSON with 'N_by_year' in properties
     fetch('india_nsurplus_time.geojson')
-      .then(r => r.json())
-      .then(geojson => {
-        geoLayer = L.geoJSON(geojson, {
+      .then(res => res.json())
+      .then(data => {
+        geoLayer = L.geoJSON(data, {
           style: styleFeature,
-          onEachFeature: function(feature, layer) {
-            // Instead of bindPopup, we handle the click event ourselves:
-            layer.on('click', () => {
-              drawTimeseriesFromGeo(feature);
-            });
+          onEachFeature: (feature, layer) => {
+            // When user clicks a district, draw time-series from its properties
+            layer.on('click', () => drawTimeseries(feature));
           }
         }).addTo(map);
 
-        // Fit bounds to the loaded GeoJSON
+        // Fit map to entire GeoJSON boundary
         map.fitBounds(geoLayer.getBounds());
 
         // Add color legend
         addLegend();
       })
-      .catch(err => console.error("Error loading GeoJSON:", err));
+      .catch(err => console.error('Error loading geojson:', err));
 
-    // 2) Style each district by currentYear
+    // Style each district by currentYear
     function styleFeature(feature) {
-      let val = getNVal(feature);
+      const val = getNval(feature);
       return {
         color: '#555',
         weight: 1,
@@ -351,13 +158,13 @@
       };
     }
 
-    // Return numeric N surplus for the currentYear
-    function getNVal(feature) {
-      let dataObj = feature.properties.N_by_year || {};
+    // Extract the N Surplus for the currentYear
+    function getNval(feature) {
+      const dataObj = feature.properties.N_by_year || {};
       return dataObj[currentYear] || 0;
     }
 
-    // Basic color ramp
+    // Color scale
     function getColor(d) {
       return d > 200 ? '#800026' :
              d > 150 ? '#BD0026' :
@@ -368,10 +175,10 @@
                        '#FFEDA0';
     }
 
-    // 3) Called when user moves the year slider
+    // Called whenever the slider changes
     function updateYear(y) {
       currentYear = y;
-      document.getElementById("yearLabel").textContent = y;
+      document.getElementById('yearLabel').textContent = y;
       if (geoLayer) {
         geoLayer.eachLayer(layer => {
           layer.setStyle(styleFeature(layer.feature));
@@ -379,26 +186,26 @@
       }
     }
 
-    // 4) Generate a time-series plot from feature.properties.N_by_year
-    function drawTimeseriesFromGeo(feature) {
-      let dist = feature.properties.Dist_Name || "Unknown";
-      let nObj = feature.properties.N_by_year || {};
+    // Draw a time-series chart from the clicked feature
+    function drawTimeseries(feature) {
+      const distName = feature.properties.Dist_Name || 'Unknown District';
+      const nObj = feature.properties.N_by_year || {};
 
-      // Extract sorted years & values
-      let years = Object.keys(nObj).map(x => +x).sort((a,b) => a-b);  
-      let yVals = years.map(yr => nObj[yr]);
+      // Sort the years as numbers
+      const years = Object.keys(nObj).map(yr => +yr).sort((a,b) => a-b);
+      const yVals = years.map(yr => nObj[yr]);
 
-      let trace = {
+      const trace = {
         x: years,
         y: yVals,
-        mode: 'lines+markers',
         type: 'scatter',
-        name: dist,
-        hovertemplate: '%{x}<br>%{y} kg/ha<extra>'+dist+'</extra>'
+        mode: 'lines+markers',
+        name: distName,
+        hovertemplate: '%{x}<br>%{y} kg/ha<extra>'+distName+'</extra>'
       };
 
-      let layout = {
-        title: `Timeseries for ${dist}`,
+      const layout = {
+        title: `N Surplus Over Time: ${distName}`,
         xaxis: { title: 'Year' },
         yaxis: { title: 'N Surplus (kg/ha)' }
       };
@@ -406,17 +213,16 @@
       Plotly.newPlot('districtTimeseries', [trace], layout);
     }
 
-    // 5) Add a color legend
+    // Add a color legend
     function addLegend() {
       const legend = L.control({ position: 'bottomright' });
-      legend.onAdd = function() {
-        let div = L.DomUtil.create('div', 'legend');
+      legend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'legend');
         div.innerHTML = '<b>N Surplus (kg/ha)</b><br>';
-        // Ranges that match getColor
         const ranges = [0, 20, 50, 100, 150, 200];
         for (let i=0; i<ranges.length; i++) {
-          let from = ranges[i];
-          let to = ranges[i+1];
+          const from = ranges[i];
+          const to = ranges[i+1];
           div.innerHTML +=
             '<i style="background:' + getColor(from + 0.1) + '"></i> ' +
             from + (to ? '&ndash;' + to : '+') + '<br>';
