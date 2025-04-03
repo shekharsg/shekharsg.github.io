@@ -4,93 +4,135 @@
   <meta charset="UTF-8" />
   <title>Contact | Shekhar Sharan Goyal</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f9f9f9;
+      background: #f4f4f4;
+      color: #333;
+      position: relative;
+      min-height: 100vh;
     }
+
     header {
-      background: #003049;
-      color: white;
-      padding: 2rem;
+      background: linear-gradient(to right, #005c88, #0077aa);
+      color: #fff;
+      padding: 3rem 1rem 1rem;
       text-align: center;
     }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
     nav {
-      background: #02202c;
-      padding: 1rem;
+      background: #022;
       text-align: center;
+      padding: 1rem;
     }
+
     nav a {
-      color: white;
+      color: #fff;
       text-decoration: none;
       margin: 0 1rem;
       font-weight: bold;
     }
+
     nav a:hover {
       text-decoration: underline;
     }
+
     main {
       max-width: 800px;
       margin: 2rem auto;
-      background: white;
+      background: #fff;
       padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
+
     main p {
       font-size: 1.1rem;
-      margin-bottom: 1rem;
+      line-height: 1.6;
     }
+
     .icon {
-      margin-right: 8px;
-      color: #0077b5;
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      margin-right: 6px;
     }
-    .orcid {
-      color: #A6CE39;
+
+    .visitor-floating {
+      position: fixed;
+      bottom: 10px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      z-index: 9999;
+      font-family: monospace;
     }
+
     footer {
-      background: #222;
+      background: #111;
       color: white;
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+      padding: 1.5rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Contact</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="publications.html">Publications</a>
+      <a href="visualization.html">Visualization</a>
+      <a href="outreach.html">Science Outreach</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="publications.html">Publications</a>
-    <a href="visualization.html">Visualization</a>
-    <a href="science_outreach.html">Science Outreach</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+
   <main>
-    <p><i class="fas fa-envelope icon"></i>Email: <a href="mailto:shekhar-sharan.goyal@ufz.de">shekhar-sharan.goyal@ufz.de</a></p>
-    <p><i class="fas fa-phone icon"></i>Phone: [+91-7477791222]</p>
+    <p><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="icon" alt="email" />
+      Email: <a href="mailto:shekhar-sharan.goyal@ufz.de">shekhar-sharan.goyal@ufz.de</a></p>
+
+    <p><img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" class="icon" alt="phone" />
+      Phone: [+91-7477791222]</p>
+
     <p>
-      <i class="fab fa-linkedin icon"></i><a href="https://www.linkedin.com/in/shekhar-goyal-864226347/" target="_blank">LinkedIn</a>
-      <br/>
-      <i class="fab fa-orcid icon orcid"></i><a href="https://orcid.org/0009-0000-6979-3975" target="_blank">ORCID</a>
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="icon" alt="linkedin" />
+      <a href="https://linkedin.com/in/shekhar-goyal-2b0676131" target="_blank">LinkedIn</a> |
+      <img src="https://cdn-icons-png.flaticon.com/512/2175/2175378.png" class="icon" alt="orcid" />
+      <a href="https://orcid.org/0009-0000-6979-3975" target="_blank">ORCID</a>
     </p>
-     <section class="visitor-counter">
-      <p><strong>Visitor Count:</strong></p>
-      <a href="https://www.hitwebcounter.com" target="_blank">
-        <img src="https://hitwebcounter.com/counter/counter.php?page=1234567&style=0006&nbdigits=5&type=page&initCount=0"
-          title="Visitor Counter" Alt="Free Counter" border="0" />
-      </a>
-    </section>
   </main>
+
+  <!-- Subtle floating visitor counter -->
+  <div class="visitor-floating">
+    👁️‍🗨️ <span id="visitor-count">loading...</span> visitors
+  </div>
+
   <footer>
     <p>&copy; 2025 Shekhar Sharan Goyal</p>
   </footer>
+
+  <!-- Replace this with your custom hitwebcounter link -->
+  <script>
+    // Replace this URL with your actual Hitwebcounter counter
+    const img = new Image();
+    img.src = "https://hitwebcounter.com/counter/counter.php?page=12345678&style=0006&nbdigits=5&type=page&initCount=100";
+    img.onload = () => {
+      const digits = img.src.match(/nbdigits=\d+.*initCount=(\d+)/);
+      document.getElementById('visitor-count').textContent = digits ? digits[1] : '100+';
+    };
+  </script>
 </body>
 </html>
