@@ -107,6 +107,14 @@
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
 
     .card h3 {
@@ -175,21 +183,24 @@
   </section>
 
   <section class="content">
-    <div class="card">
+
+    <a href="about.html" class="card">
       <h3>🎓 Education</h3>
       <p>
         <strong>Doctorate (2024):</strong> IIT Gandhinagar<br>
         <strong>Masters:</strong> IIT Kharagpur<br>
         <strong>Focus:</strong> Nitrogen Surplus, Water Pollution, Ecohydrology
       </p>
-    </div>
-    <div class="card">
+    </a>
+
+    <a href="projects.html" class="card">
       <h3>🔬 Fields of Research</h3>
       <p>
         Ecohydrology, Nutrient Cycles, Food Sustainability, Sustainable Trade, Natural Resource Management,
         Climate-Driven Stream Temperature Modeling
       </p>
-    </div>
+    </a>
+
     <div class="card">
       <h3>📘 Publications</h3>
       <p>
@@ -197,6 +208,7 @@
         <em>Scientific Data</em>, and more. See full list on the <a href="publications.html">Publications</a> page.
       </p>
     </div>
+
     <div class="card">
       <h3>📬 Contact</h3>
       <p>
@@ -206,9 +218,9 @@
         <a href="#">Twitter</a>
       </p>
     </div>
+
   </section>
 
-  <!-- ====== RESEARCH OVERVIEW IMAGE SECTION ====== -->
   <section class="research-overview">
     <h2 style="text-align:center;">Research Overview</h2>
     <img src="images/single_slide_research_shekhar.png" alt="Research Overview Image">
