@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>GeoJSON Map & Time-Series</title>
 
-  <!-- Plotly (only needed if you want the time series chart) -->
+  <!-- Plotly -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <!-- Leaflet CSS/JS -->
@@ -14,19 +14,35 @@
   <style>
     * { box-sizing: border-box; }
     body {
-      margin: 0; 
+      margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       background: #f4f4f4;
     }
     header {
-      background: #333;
+      background: linear-gradient(to right, #006994, #007aa3);
       color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    nav {
+      background: #02202c;
       padding: 1rem;
       text-align: center;
     }
-    header h1 { margin: 0; }
-
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
     main {
       max-width: 1200px;
       margin: 1rem auto;
@@ -35,7 +51,6 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 1rem 2rem;
     }
-
     #map {
       width: 100%;
       height: 600px;
@@ -43,13 +58,10 @@
       border: 2px solid #ddd;
       border-radius: 6px;
     }
-
     .slider-container {
       text-align: center;
       margin-bottom: 1rem;
     }
-
-    /* Color Legend for Leaflet map */
     .legend {
       background: white;
       padding: 6px 8px;
@@ -64,14 +76,11 @@
       margin-right: 8px;
       opacity: 0.7;
     }
-
-    /* Timeseries chart container */
     #districtTimeseries {
       width: 100%;
       height: 600px;
       margin-top: 1rem;
     }
-
     footer {
       background: #222;
       color: #fff;
@@ -86,25 +95,25 @@
     <h1>Interactive Map & Time-Series</h1>
   </header>
 
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="publications.html">Publications</a>
+    <a href="visualization.html">Visualization</a>
+    <a href="science_outreach.html">Science Outreach</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
   <main>
     <h2>Map-based N Surplus Visualization</h2>
     <p>Select a year below, then click on any district to see its full N Surplus time series.</p>
 
-    <!-- Leaflet map -->
     <div id="map"></div>
 
-    <!-- Year slider -->
     <div class="slider-container">
       <label for="yearSlider"><strong>Year:</strong></label>
-      <input
-        type="range"
-        id="yearSlider"
-        min="1966"
-        max="2020"
-        step="1"
-        value="1966"
-        oninput="updateYear(this.value)"
-      />
+      <input type="range" id="yearSlider" min="1966" max="2020" step="1" value="1966" oninput="updateYear(this.value)" />
       <span id="yearLabel">1966</span>
     </div>
 
@@ -117,8 +126,7 @@
   </footer>
 
   <script>
-    // --- Basic Leaflet Setup ---
-    const map = L.map('map').setView([22.0, 78.0], 5); // Center on India
+    const map = L.map('map').setView([22.0, 78.0], 5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 14,
       attribution: '&copy; OpenStreetMap contributors'
@@ -127,27 +135,21 @@
     let currentYear = 1966;
     let geoLayer;
 
-    // Load the merged GeoJSON with 'N_by_year' in properties
     fetch('india_nsurplus_time.geojson')
       .then(res => res.json())
       .then(data => {
         geoLayer = L.geoJSON(data, {
           style: styleFeature,
           onEachFeature: (feature, layer) => {
-            // When user clicks a district, draw time-series from its properties
             layer.on('click', () => drawTimeseries(feature));
           }
         }).addTo(map);
 
-        // Fit map to entire GeoJSON boundary
         map.fitBounds(geoLayer.getBounds());
-
-        // Add color legend
         addLegend();
       })
       .catch(err => console.error('Error loading geojson:', err));
 
-    // Style each district by currentYear
     function styleFeature(feature) {
       const val = getNval(feature);
       return {
@@ -158,13 +160,11 @@
       };
     }
 
-    // Extract the N Surplus for the currentYear
     function getNval(feature) {
       const dataObj = feature.properties.N_by_year || {};
       return dataObj[currentYear] || 0;
     }
 
-    // Color scale
     function getColor(d) {
       return d > 200 ? '#800026' :
              d > 150 ? '#BD0026' :
@@ -175,7 +175,6 @@
                        '#FFEDA0';
     }
 
-    // Called whenever the slider changes
     function updateYear(y) {
       currentYear = y;
       document.getElementById('yearLabel').textContent = y;
@@ -186,12 +185,9 @@
       }
     }
 
-    // Draw a time-series chart from the clicked feature
     function drawTimeseries(feature) {
       const distName = feature.properties.Dist_Name || 'Unknown District';
       const nObj = feature.properties.N_by_year || {};
-
-      // Sort the years as numbers
       const years = Object.keys(nObj).map(yr => +yr).sort((a,b) => a-b);
       const yVals = years.map(yr => nObj[yr]);
 
@@ -213,7 +209,6 @@
       Plotly.newPlot('districtTimeseries', [trace], layout);
     }
 
-    // Add a color legend
     function addLegend() {
       const legend = L.control({ position: 'bottomright' });
       legend.onAdd = function () {
