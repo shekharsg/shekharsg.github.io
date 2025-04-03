@@ -12,140 +12,145 @@
       color: #333;
     }
 
-header {
-  position: relative;
-  background: url('images/earth-bg.jpg') no-repeat center center/cover;
-  color: #fff;
-  text-align: center;
-  padding: 6rem 2rem 2rem;
-  z-index: 1;
-}
+    header {
+      position: relative;
+      background: url('images/earth-bg.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 6rem 2rem 2rem;
+      z-index: 1;
+    }
 
-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: -1;
-}
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
 
-header h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
+    header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-header p {
-  font-size: 1.2rem;
-  color: #e0e0e0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
+    header p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
 
-nav {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 1rem;
-  text-align: center;
-}
+    nav {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      text-align: center;
+    }
 
-nav a {
-  margin: 0 1rem;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-nav a:hover {
-  text-decoration: underline;
-}
+    nav a:hover {
+      text-decoration: underline;
+    }
 
-.hero {
-  text-align: center;
-  padding: 2rem;
-  background: #ffffff;
-}
+    .hero {
+      text-align: center;
+      padding: 2rem;
+      background: #ffffff;
+    }
 
-.hero h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #0077aa;
-}
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0077aa;
+    }
 
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
 
-.btn {
-  display: inline-block;
-  background: #0077aa;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-}
+    .btn {
+      display: inline-block;
+      background: #0077aa;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-.btn:hover {
-  background: #005c88;
-}
+    .btn:hover {
+      background: #005c88;
+    }
 
-.content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 3rem 2rem;
-  background: linear-gradient(to right, #eef2f3, #ffffff);
-}
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 3rem 2rem;
+      background: linear-gradient(to right, #eef2f3, #ffffff);
+    }
 
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
 
-.card h3 {
-  color: #0077aa;
-  margin-bottom: 0.5rem;
-}
+    .card:hover {
+      transform: scale(1.02);
+    }
 
-.card p {
-  font-size: 1rem;
-  line-height: 1.5;
-}
+    .card h3 {
+      color: #0077aa;
+      margin-bottom: 0.5rem;
+    }
 
-.research-overview img {
-  width: 100%;
-  max-width: 1000px;
-  display: block;
-  margin: 2rem auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+    .card p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
 
-footer {
-  text-align: center;
-  background: #111;
-  color: white;
-  padding: 2rem 1rem;
-  margin-top: 2rem;
-}
+    footer {
+      text-align: center;
+      background: #111;
+      color: white;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
 
-.profile-img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin: 1rem auto;
-  display: block;
-  border: 4px solid #0077aa;
-}
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 1rem auto;
+      display: block;
+      border: 4px solid #0077aa;
+    }
+
+    .research-image {
+      display: block;
+      max-width: 95%;
+      margin: 3rem auto 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
   </style>
 </head>
 
@@ -160,6 +165,7 @@ footer {
       <a href="projects.html">Projects</a>
       <a href="publications.html">Publications</a>
       <a href="visualization.html">Visualization</a>
+      <a href="outreach.html">Science Outreach</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
@@ -175,33 +181,29 @@ footer {
   </section>
 
   <section class="content">
-
-    <a href="about.html" class="card">
+    <div class="card" onclick="location.href='about.html'">
       <h3>🎓 Education</h3>
       <p>
         <strong>Doctorate (2024):</strong> IIT Gandhinagar<br>
         <strong>Masters:</strong> IIT Kharagpur<br>
         <strong>Focus:</strong> Nitrogen Surplus, Water Pollution, Ecohydrology
       </p>
-    </a>
-
-    <a href="projects.html" class="card">
+    </div>
+    <div class="card" onclick="location.href='projects.html'">
       <h3>🔬 Fields of Research</h3>
       <p>
         Ecohydrology, Nutrient Cycles, Food Sustainability, Sustainable Trade, Natural Resource Management,
         Climate-Driven Stream Temperature Modeling
       </p>
-    </a>
-
-    <div class="card">
+    </div>
+    <div class="card" onclick="location.href='publications.html'">
       <h3>📘 Publications</h3>
       <p>
         Peer-reviewed articles in <em>Nature Communications Earth & Environment</em>,
-        <em>Scientific Data</em>, and more. See full list on the <a href="publications.html">Publications</a> page.
+        <em>Scientific Data</em>, and more. See full list on the Publications page.
       </p>
     </div>
-
-    <div class="card">
+    <div class="card" onclick="location.href='contact.html'">
       <h3>📬 Contact</h3>
       <p>
         Email: goyal_shekhar@iitgn.ac.in<br>
@@ -210,12 +212,11 @@ footer {
         <a href="#">Twitter</a>
       </p>
     </div>
-
   </section>
 
-  <section class="research-overview">
-    <h2 style="text-align:center;">Research Overview</h2>
-    <img src="images/single_slide_research_shekhar.png" alt="Research Overview Image">
+  <!-- Research Summary Image -->
+  <section>
+    <img src="images/single_slide_research_shekhar.png" alt="Research Overview Diagram" class="research-image" />
   </section>
 
   <footer>
