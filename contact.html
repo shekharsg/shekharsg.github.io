@@ -8,34 +8,32 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: #f4f4f4;
+      background-color: #f4f4f4;
       color: #333;
-      position: relative;
-      min-height: 100vh;
     }
 
     header {
       background: linear-gradient(to right, #005c88, #0077aa);
       color: #fff;
-      padding: 3rem 1rem 1rem;
       text-align: center;
+      padding: 3rem 1rem 2rem;
     }
 
     header h1 {
+      margin: 0;
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
     }
 
     nav {
-      background: #022;
-      text-align: center;
+      background: #111;
       padding: 1rem;
+      text-align: center;
     }
 
     nav a {
       color: #fff;
-      text-decoration: none;
       margin: 0 1rem;
+      text-decoration: none;
       font-weight: bold;
     }
 
@@ -49,40 +47,56 @@
       background: #fff;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     main p {
       font-size: 1.1rem;
-      line-height: 1.6;
+      margin: 1rem 0;
+    }
+
+    main a {
+      color: #0077aa;
+      text-decoration: none;
+    }
+
+    main a:hover {
+      text-decoration: underline;
     }
 
     .icon {
-      width: 18px;
-      height: 18px;
+      margin-right: 0.5rem;
       vertical-align: middle;
-      margin-right: 6px;
-    }
-
-    .visitor-floating {
-      position: fixed;
-      bottom: 10px;
-      right: 15px;
-      background: rgba(0, 0, 0, 0.75);
-      color: white;
-      font-size: 14px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      z-index: 9999;
-      font-family: monospace;
     }
 
     footer {
       background: #111;
-      color: white;
+      color: #fff;
       text-align: center;
       padding: 1.5rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
+    }
+
+    /* Visitor Counter */
+    .visitor-counter {
+      position: fixed;
+      bottom: 15px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Segoe UI', sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .visitor-counter img {
+      height: 18px;
     }
   </style>
 </head>
@@ -101,38 +115,32 @@
   </header>
 
   <main>
-    <p><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="icon" alt="email" />
+    <p><img class="icon" src="https://img.icons8.com/ios-filled/20/0077aa/secured-letter.png" alt="Email Icon" />
       Email: <a href="mailto:shekhar-sharan.goyal@ufz.de">shekhar-sharan.goyal@ufz.de</a></p>
 
-    <p><img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" class="icon" alt="phone" />
+    <p><img class="icon" src="https://img.icons8.com/ios-filled/20/0077aa/phone.png" alt="Phone Icon" />
       Phone: [+91-7477791222]</p>
 
     <p>
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="icon" alt="linkedin" />
-      <a href="https://linkedin.com/in/shekhar-goyal-2b0676131" target="_blank">LinkedIn</a> |
-      <img src="https://cdn-icons-png.flaticon.com/512/2175/2175378.png" class="icon" alt="orcid" />
+      <img class="icon" src="https://img.icons8.com/ios-filled/20/0077aa/linkedin.png" alt="LinkedIn Icon" />
+      <a href="https://linkedin.com/in/shekhar-goyal-2b0676131" target="_blank">LinkedIn</a>
+    </p>
+
+    <p>
+      <img class="icon" src="https://img.icons8.com/color/20/orcid.png" alt="ORCID Icon" />
       <a href="https://orcid.org/0009-0000-6979-3975" target="_blank">ORCID</a>
     </p>
   </main>
 
-  <!-- Subtle floating visitor counter -->
-  <div class="visitor-floating">
-    👁️‍🗨️ <span id="visitor-count">loading...</span> visitors
+  <!-- Visitor Counter Widget -->
+  <div class="visitor-counter">
+    👁️ Visitors:
+    <img src="https://hitwebcounter.com/counter/counter.php?page=20107088&style=0030&nbdigits=5&type=page&initCount=0"
+         title="Counter Widget" alt="Visit counter For Websites" />
   </div>
 
   <footer>
-    <p>&copy; 2025 Shekhar Sharan Goyal</p>
+    <p>&copy; 2025 Shekhar Sharan Goyal | Earth Scientist</p>
   </footer>
-
-  <!-- Replace this with your custom hitwebcounter link -->
-  <script>
-    // Replace this URL with your actual Hitwebcounter counter
-    const img = new Image();
-    img.src ="https://hitwebcounter.com/counter/counter.php?page=20107036&style=0030&nbdigits=5&type=page&initCount=0";
-    img.onload = () => {
-      const digits = img.src.match(/nbdigits=\d+.*initCount=(\d+)/);
-      document.getElementById('visitor-count').textContent = digits ? digits[1] : '100+';
-    };
-  </script>
 </body>
 </html>
