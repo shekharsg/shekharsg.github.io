@@ -67,14 +67,14 @@
       margin: 0 auto 2rem auto;
     }
 
-    .articles {
+    .articles, .gallery {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
       justify-content: center;
     }
 
-    .article-item {
+    .article-item, .gallery-item {
       flex: 1 1 calc(30% - 2rem);
       max-width: 300px;
       background: #f9f9f9;
@@ -84,11 +84,11 @@
       transition: transform 0.3s ease;
     }
 
-    .article-item:hover {
+    .article-item:hover, .gallery-item:hover {
       transform: translateY(-5px);
     }
 
-    .article-item img {
+    .article-item img, .gallery-item img {
       width: 100%;
       height: auto;
       display: block;
@@ -140,6 +140,7 @@
       As a passionate advocate for environmental science and sustainability, I strive to bridge the gap between scientific research and public awareness through engaging outreach. From delivering keynote talks and school lectures to featuring in media and community workshops, my outreach efforts aim to educate, inspire, and empower.
     </p>
 
+    <!-- News Articles Section -->
     <div class="articles">
       <div class="article-item">
         <a href="https://timesofindia.indiatimes.com/city/vijayawada/ap-sees-six-fold-rise-in-agri-nitrogen-surplus-since-1966/articleshow/118095882.cms" target="_blank">
@@ -148,7 +149,7 @@
         <div class="caption">
           <strong>AP sees six-fold rise in agri nitrogen surplus since 1966</strong><br>
           Published: February 9, 2025<br>
-          <p>Between 1966 and 2017, Andhra Pradesh experienced a notable increase in agricultural nitrogen surplus, with a mean of 111.74 kg/ha. The highest recorded surplus was 198.8 (kg/ha) in 2013, and the lowest was 29.3 (kg/ha) in 1966, showing an almost six-fold increase over 50 years. This growing surplus reflects intensified fertiliser usage, driven by the Green Revolution and expanding agricultural practices.</p>
+          <p>Between 1966 and 2017, Andhra Pradesh experienced a notable increase in agricultural nitrogen surplus...</p>
         </div>
       </div>
       <div class="article-item">
@@ -158,6 +159,58 @@
         <div class="caption">
           <strong>AP stares at water pollution, nitrate contamination: Study</strong><br>
           Published: January 30, 2024<br>
-          <p>Intensive agricultural practices, while driving the green revolution’s success, have fostered fertiliser-intensive systems and an exploitative trade. A recent study conducted by researchers from the Indian Institute of Technology, Gandhinagar, and the Helmholtz Centre for Environmental Research, Germany, has found Andhra Pradesh accum
-::contentReference[oaicite:0]{index=0}
- 
+          <p>A recent study conducted by IIT Gandhinagar and UFZ Germany finds Andhra Pradesh facing nitrate pollution...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conference Photos Section -->
+    <h2>Conference Presentations</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="images/outreach1.jpg" alt="EGU 2025 Poster Presentation">
+        <div class="caption">Presenting research at EGU 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/outreach4.jpg" alt="Guest Lecture">
+        <div class="caption">Invited lecture on sustainable development</div>
+      </div>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <h2>Upcoming Events</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="images/upcoming1.jpg" alt="Upcoming Workshop">
+        <div class="caption">Upcoming workshop on Nitrogen Budgeting – June 2025</div>
+      </div>
+    </div>
+
+    <!-- Outing Photos Section -->
+    <h2>Outreach & Travel Moments</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="images/outing1.jpg" alt="Outing 1">
+        <div class="caption">Field trip to Brahmaputra Basin</div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/outing2.jpg" alt="Outing 2">
+        <div class="caption">Exploring Leipzig’s river systems</div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/outing3.jpg" alt="Outing 3">
+        <div class="caption">Community outreach in Gujarat</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Shekhar Sharan Goyal | Earth Scientist</p>
+    <div class="social-icons">
+      <a href="https://linkedin.com/in/shekhar-goyal-2b0676131" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://orcid.org/0009-0000-6979-3975" target="_blank" aria-label="ORCID"><i class="fab fa-orcid"></i></a>
+    </div>
+  </footer>
+</body>
+</html>
