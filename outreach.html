@@ -67,14 +67,14 @@
       margin: 0 auto 2rem auto;
     }
 
-    .articles, .gallery {
+    .articles, .gallery-row {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
       justify-content: center;
     }
 
-    .article-item, .gallery-item {
+    .article-item {
       flex: 1 1 calc(30% - 2rem);
       max-width: 300px;
       background: #f9f9f9;
@@ -84,11 +84,11 @@
       transition: transform 0.3s ease;
     }
 
-    .article-item:hover, .gallery-item:hover {
+    .article-item:hover {
       transform: translateY(-5px);
     }
 
-    .article-item img, .gallery-item img {
+    .article-item img {
       width: 100%;
       height: auto;
       display: block;
@@ -140,69 +140,62 @@
       As a passionate advocate for environmental science and sustainability, I strive to bridge the gap between scientific research and public awareness through engaging outreach. From delivering keynote talks and school lectures to featuring in media and community workshops, my outreach efforts aim to educate, inspire, and empower.
     </p>
 
-    <!-- News Articles Section -->
+    <!-- Newspaper Articles -->
     <div class="articles">
       <div class="article-item">
         <a href="https://timesofindia.indiatimes.com/city/vijayawada/ap-sees-six-fold-rise-in-agri-nitrogen-surplus-since-1966/articleshow/118095882.cms" target="_blank">
-          <img src="images/times1.PNG" alt="AP sees six-fold rise in agri nitrogen surplus since 1966">
+          <img src="images/times1.PNG" alt="Nitrogen Surplus Article">
         </a>
         <div class="caption">
           <strong>AP sees six-fold rise in agri nitrogen surplus since 1966</strong><br>
-          Published: February 9, 2025<br>
-          <p>Between 1966 and 2017, Andhra Pradesh experienced a notable increase in agricultural nitrogen surplus...</p>
+          <p>Feb 9, 2025 &mdash; Based on IITGN & UFZ research insights.</p>
         </div>
       </div>
       <div class="article-item">
         <a href="https://timesofindia.indiatimes.com/city/visakhapatnam/ap-water-pollution-and-nitrate-contamination-study/articleshow/107245737.cms" target="_blank">
-          <img src="images/times1.PNG" alt="AP stares at water pollution, nitrate contamination: Study">
+          <img src="images/times2.PNG" alt="Water Pollution Study">
         </a>
         <div class="caption">
           <strong>AP stares at water pollution, nitrate contamination: Study</strong><br>
-          Published: January 30, 2024<br>
-          <p>A recent study conducted by IIT Gandhinagar and UFZ Germany finds Andhra Pradesh facing nitrate pollution...</p>
+          <p>Jan 30, 2024 &mdash; Featured insights from IITGN-UFZ collaboration.</p>
         </div>
       </div>
     </div>
 
-    <!-- Conference Photos Section -->
-    <h2>Conference Presentations</h2>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="images/outreach1.jpg" alt="EGU 2025 Poster Presentation">
-        <div class="caption">Presenting research at EGU 2025</div>
+    <!-- Upcoming Talks -->
+    <h2 style="margin-top:3rem">Upcoming Engagements</h2>
+    <div class="articles">
+      <div class="article-item">
+        <img src="images/jspm_fdp.jpg" alt="FDP JSPM">
+        <div class="caption">
+          <strong>Invited Talk @ JSPM University FDP</strong><br>
+          <p>April 7–12, 2025</p>
+        </div>
       </div>
-      <div class="gallery-item">
-        <img src="images/outreach4.jpg" alt="Guest Lecture">
-        <div class="caption">Invited lecture on sustainable development</div>
-      </div>
-    </div>
-
-    <!-- Upcoming Events Section -->
-    <h2>Upcoming Events</h2>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="images/upcoming1.jpg" alt="Upcoming Workshop">
-        <div class="caption">Upcoming workshop on Nitrogen Budgeting – June 2025</div>
+      <div class="article-item">
+        <img src="images/thesis_defense.jpg" alt="PhD Defense">
+        <div class="caption">
+          <strong>PhD Thesis Defense</strong><br>
+          <p>April 17, 2025 – IIT Gandhinagar</p>
+        </div>
       </div>
     </div>
 
-    <!-- Outing Photos Section -->
-    <h2>Outreach & Travel Moments</h2>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="images/outing1.jpg" alt="Outing 1">
-        <div class="caption">Field trip to Brahmaputra Basin</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/outing2.jpg" alt="Outing 2">
-        <div class="caption">Exploring Leipzig’s river systems</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/outing3.jpg" alt="Outing 3">
-        <div class="caption">Community outreach in Gujarat</div>
-      </div>
+    <!-- Conferences Row -->
+    <h2 style="margin-top:3rem">Conferences & Guest Lectures</h2>
+    <div class="gallery-row">
+      <div class="article-item"><img src="images/outreach1.jpg" alt="Conference Presentation"><div class="caption">Poster Presentation at EGU 2025</div></div>
+      <div class="article-item"><img src="images/outreach4.jpg" alt="Guest Lecture"><div class="caption">Guest Lecture on Sustainability</div></div>
     </div>
 
+    <!-- Outings Row -->
+    <h2 style="margin-top:3rem">Outreach & Travel Moments</h2>
+    <div class="gallery-row">
+      <div class="article-item"><img src="images/out1.jpg" alt="Outing 1"></div>
+      <div class="article-item"><img src="images/out2.jpg" alt="Outing 2"></div>
+      <div class="article-item"><img src="images/out3.jpg" alt="Outing 3"></div>
+      <div class="article-item"><img src="images/out4.jpg" alt="Outing 4"></div>
+    </div>
   </main>
 
   <footer>
