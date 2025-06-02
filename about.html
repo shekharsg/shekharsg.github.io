@@ -174,84 +174,68 @@
     </section>
 
     <script type="text/javascript">
-      async function drawNetwork() {
-        // Your ORCID ID
-        const orcidID = '0000-0000-6979-3975';  // <- Replace with your ORCID if needed
-        
-        // Fetch author info from OpenAlex
-        const response = await fetch(`https://api.openalex.org/authors?filter=orcid:${orcidID}`);
-        const data = await response.json();
+      // create an array with nodes
+      var nodes = new vis.DataSet([
+        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: "#0077aa", font: { color: "white", size: 20 }, size: 30 },
+        { id: 2, label: "Rohini Kumar" },
+        { id: 3, label: "Raviraj Dave" },
+        //{ id: 4, label: "Bertram Böhrer" },
+       // { id: 5, label: "Wim de Vries" },
+        { id: 6, label: "Udit Bhatia" },
+        //{ id: 7, label: "Taynara de Souza Fernandes" },
+       // { id: 8, label: "Christian Schmidt" }
+      ]);
 
-        const author = data.results[0]; // You
-        const worksResponse = await fetch(author.works_api_url); // Fetch your works
-        const worksData = await worksResponse.json();
+      // create an array with edges
+      var edges = new vis.DataSet([
+        { from: 1, to: 2 },
+        { from: 1, to: 3 },
+        { from: 1, to: 4 },
+        { from: 1, to: 5 },
+        { from: 1, to: 6 },
+        { from: 1, to: 7 },
+        { from: 1, to: 8 },
+        { from: 2, to: 3 },
+        { from: 3, to: 4 }
+      ]);
 
-        const coauthorsSet = new Set();
-        
-        // Loop through your works to find co-authors
-        worksData.results.forEach(work => {
-          if (work.authorships) {
-            work.authorships.forEach(auth => {
-              if (auth.author && auth.author.display_name !== author.display_name) {
-                coauthorsSet.add(auth.author.display_name);
-              }
-            });
-          }
-        });
+      // create a network
+      var container = document.getElementById('network');
 
-        // Convert to Array
-        const coauthors = Array.from(coauthorsSet);
-
-        // Create Nodes
-        const nodesArray = [
-          { id: 1, label: author.display_name, shape: "circle", color: "#0077aa", font: { color: "white", size: 20 }, size: 30 }
-        ];
-        coauthors.forEach((name, index) => {
-          nodesArray.push({ id: index + 2, label: name });
-        });
-
-        // Create Edges
-        const edgesArray = coauthors.map((name, index) => ({
-          from: 1,
-          to: index + 2
-        }));
-
-        const nodes = new vis.DataSet(nodesArray);
-        const edges = new vis.DataSet(edgesArray);
-
-        const container = document.getElementById('network');
-        const visData = { nodes: nodes, edges: edges };
-        const options = {
-          nodes: {
-            shape: 'dot',
-            size: 16,
-            font: {
-              size: 14
-            },
-            borderWidth: 2
+      // provide the data in the vis format
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {
+        nodes: {
+          shape: 'dot',
+          size: 16,
+          font: {
+            size: 14
           },
-          edges: {
-            width: 2,
-            color: { color: '#0077aa' }
+          borderWidth: 2
+        },
+        edges: {
+          width: 2,
+          color: { color: '#0077aa' }
+        },
+        physics: {
+          forceAtlas2Based: {
+            gravitationalConstant: -100,
+            centralGravity: 0.02,
+            springLength: 100,
+            springConstant: 0.08
           },
-          physics: {
-            forceAtlas2Based: {
-              gravitationalConstant: -100,
-              centralGravity: 0.02,
-              springLength: 100,
-              springConstant: 0.08
-            },
-            maxVelocity: 50,
-            solver: 'forceAtlas2Based',
-            timestep: 0.35,
-            stabilization: { iterations: 150 }
-          }
-        };
+          maxVelocity: 50,
+          solver: 'forceAtlas2Based',
+          timestep: 0.35,
+          stabilization: { iterations: 150 }
+        }
+      };
 
-        new vis.Network(container, visData, options);
-      }
-
-      drawNetwork();
+      // initialize your network!
+      var network = new vis.Network(container, data, options);
     </script>
   </main>
 
