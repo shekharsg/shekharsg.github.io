@@ -74,8 +74,19 @@
       padding: 1.5rem;
       margin-top: 3rem;
     }
+    #network {
+      height: 500px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
   </style>
+
+  <!-- vis-network library -->
+  <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+  <link href="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
   <header>
     <h1>About Me</h1>
@@ -156,6 +167,76 @@
         <li>JAM Scholarship – Ministry of Human Resource Development, India (2016)</li>
       </ul>
     </section>
+
+    <section>
+      <h2>Collaborative Network</h2>
+      <div id="network"></div>
+    </section>
+
+    <script type="text/javascript">
+      // create an array with nodes
+      var nodes = new vis.DataSet([
+        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: "#0077aa", font: { color: "white", size: 20 }, size: 30 },
+        { id: 2, label: "Rohini Kumar" },
+        { id: 3, label: "Karsten Rinke" },
+        { id: 4, label: "Bertram Böhrer" },
+        { id: 5, label: "Wim de Vries" },
+        { id: 6, label: "Udit Bhatia" },
+        { id: 7, label: "Taynara de Souza Fernandes" },
+        { id: 8, label: "Christian Schmidt" }
+      ]);
+
+      // create an array with edges
+      var edges = new vis.DataSet([
+        { from: 1, to: 2 },
+        { from: 1, to: 3 },
+        { from: 1, to: 4 },
+        { from: 1, to: 5 },
+        { from: 1, to: 6 },
+        { from: 1, to: 7 },
+        { from: 1, to: 8 },
+        { from: 2, to: 3 },
+        { from: 3, to: 4 }
+      ]);
+
+      // create a network
+      var container = document.getElementById('network');
+
+      // provide the data in the vis format
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {
+        nodes: {
+          shape: 'dot',
+          size: 16,
+          font: {
+            size: 14
+          },
+          borderWidth: 2
+        },
+        edges: {
+          width: 2,
+          color: { color: '#0077aa' }
+        },
+        physics: {
+          forceAtlas2Based: {
+            gravitationalConstant: -100,
+            centralGravity: 0.02,
+            springLength: 100,
+            springConstant: 0.08
+          },
+          maxVelocity: 50,
+          solver: 'forceAtlas2Based',
+          timestep: 0.35,
+          stabilization: { iterations: 150 }
+        }
+      };
+
+      // initialize your network!
+      var network = new vis.Network(container, data, options);
+    </script>
   </main>
 
   <footer>
