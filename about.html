@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Collaboration Network | Shekhar Sharan Goyal</title>
   <style>
     body {
@@ -11,7 +11,7 @@
       color: #333;
     }
     header {
-      background: linear-gradient(to right, #005c88, #0077aa);
+      background: linear-gradient(to right, #003366, #005c99);
       color: white;
       padding: 2rem;
       text-align: center;
@@ -23,21 +23,20 @@
     #network {
       width: 90%;
       height: 700px;
-      margin: 30px auto;
-      border: 2px solid #ddd;
+      margin: 40px auto;
+      border: 1px solid #ccc;
       border-radius: 12px;
-      background: #fff;
+      background: white;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background: #f0f0f0;
       font-size: 0.9rem;
+      background: #f0f0f0;
       color: #555;
     }
   </style>
-
-  <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+  <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
 </head>
 
 <body>
@@ -51,67 +50,78 @@
     &copy; 2025 Shekhar Sharan Goyal
   </footer>
 
-  <script type="text/javascript">
+  <script>
     function drawNetwork() {
       const nodes = new vis.DataSet([
-        { id: 1, label: "Shekhar Sharan Goyal", shape: "circularImage",
-          image: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
-          size: 55, font: { size: 22, color: "#333", bold: true }
+        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle",
+          color: { background: "#005c99", border: "#003366", highlight: { background: "#007acc", border: "#005c99" } },
+          font: { color: "#ffffff", size: 22, bold: true }, size: 40 
         },
-        { id: 2, label: "Rohini Kumar", color: "#FF6B6B", size: 35 },
-        { id: 3, label: "Raviraj Dave", color: "#6BCB77", size: 35 },
-        { id: 4, label: "Masooma Batool", color: "#4D96FF", size: 35 },
-        { id: 5, label: "Adrija Datta", color: "#FFD93D", size: 35 },
-        { id: 6, label: "Udit Bhatia", color: "#845EC2", size: 35 },
-        { id: 7, label: "Christian Schmidt", color: "#00C9A7", size: 35 },
-        { id: 8, label: "Wim de Vries", color: "#FFC75F", size: 35 },
-        { id: 9, label: "Karsten Rinke", color: "#FF9671", size: 35 },
-        { id: 10, label: "Divya Upadhyay", color: "#0081CF", size: 35 },
-        { id: 11, label: "Subimal Ghosh", color: "#C34A36", size: 35 }
+        { id: 2, label: "Rohini Kumar", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 3, label: "Raviraj Dave", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 4, label: "Masooma Batool", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 5, label: "Adrija Datta", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 6, label: "Udit Bhatia", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 7, label: "Christian Schmidt", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 8, label: "Wim de Vries", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 9, label: "Karsten Rinke", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 10, label: "Divya Upadhyay", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+        { id: 11, label: "Subimal Ghosh", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } }
       ]);
 
       const edges = new vis.DataSet([
         { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 },
         { from: 1, to: 6 }, { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 },
         { from: 1, to: 10 }, { from: 1, to: 11 },
-        // Mutual collaborations (randomly added to make it dense)
-        { from: 2, to: 3 }, { from: 2, to: 5 }, { from: 2, to: 7 },
-        { from: 3, to: 6 }, { from: 3, to: 9 },
-        { from: 4, to: 5 }, { from: 4, to: 8 }, { from: 4, to: 10 },
-        { from: 5, to: 6 }, { from: 5, to: 11 },
-        { from: 6, to: 7 }, { from: 7, to: 8 }, { from: 8, to: 9 },
-        { from: 9, to: 10 }, { from: 10, to: 11 },
+        { from: 2, to: 3 }, { from: 2, to: 5 }, { from: 3, to: 6 },
+        { from: 4, to: 5 }, { from: 4, to: 8 }, { from: 5, to: 6 },
+        { from: 7, to: 8 }, { from: 8, to: 9 }, { from: 9, to: 10 },
+        { from: 10, to: 11 }
       ]);
 
       const container = document.getElementById('network');
       const data = { nodes: nodes, edges: edges };
       const options = {
         layout: {
+          randomSeed: 15,
           improvedLayout: true
         },
         nodes: {
-          borderWidth: 2,
-          shadow: true,
-          font: { size: 18 },
-          scaling: { min: 20, max: 50 }
+          borderWidth: 1,
+          shadow: {
+            enabled: true,
+            color: 'rgba(0,0,0,0.1)',
+            size: 10,
+            x: 5,
+            y: 5
+          },
+          scaling: {
+            min: 10,
+            max: 40
+          }
         },
         edges: {
-          color: { color: '#999' },
+          color: {
+            color: "#cccccc",
+            highlight: "#007acc",
+            hover: "#007acc"
+          },
           width: 2,
-          smooth: { type: 'continuous' }
+          smooth: {
+            type: "dynamic"
+          }
         },
         physics: {
-          enabled: true,
-          barnesHut: {
-            gravitationalConstant: -30000,
-            centralGravity: 0.3,
+          solver: "forceAtlas2Based",
+          forceAtlas2Based: {
+            gravitationalConstant: -50,
+            centralGravity: 0.01,
             springLength: 150,
             springConstant: 0.05,
-            damping: 0.09
+            damping: 0.4
           },
           stabilization: {
-            iterations: 2000,
-            updateInterval: 100
+            iterations: 150
           }
         },
         interaction: {
@@ -127,7 +137,7 @@
       // Click to open Google Scholar
       network.on("click", function (params) {
         if (params.nodes.length === 1 && params.nodes[0] === 1) {
-          window.open('https://scholar.google.com/citations?user=Edm4G8kAAAAJ&hl=en', '_blank');
+          window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank');
         }
       });
     }
