@@ -2,57 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About | Shekhar Sharan Goyal</title>
+  <title>Collaboration Network | Shekhar Sharan Goyal</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: #f4f4f4;
+      background: #f9f9f9;
       color: #333;
     }
     header {
       background: linear-gradient(to right, #005c88, #0077aa);
       color: white;
-      padding: 3rem 2rem 2rem;
+      padding: 2rem;
       text-align: center;
     }
     header h1 {
       margin: 0;
       font-size: 2.5rem;
     }
-    nav {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1rem;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-      color: #0077aa;
-      border-bottom: 2px solid #0077aa;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-    }
     #network {
+      width: 90%;
       height: 700px;
+      margin: 30px auto;
       border: 2px solid #ddd;
-      border-radius: 10px;
-      margin-top: 20px;
+      border-radius: 12px;
+      background: #fff;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f0f0f0;
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 
@@ -61,110 +42,97 @@
 
 <body>
   <header>
-    <h1>Dr. Shekhar Sharan Goyal</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="publications.html">Publications</a>
-      <a href="visualization.html">Visualization</a>
-      <a href="science_outreach.html">Science Outreach</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <h1>Collaboration Network</h1>
   </header>
 
-  <main>
-    <section>
-      <h2>Collaborative Network</h2>
-      <div id="network"></div>
-    </section>
-
-    <script type="text/javascript">
-      function drawNetwork() {
-        const nodes = new vis.DataSet([
-          { id: 1, label: "Shekhar Sharan Goyal", color: "#f39c12", shape: "circularImage", 
-            image: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png", 
-            size: 50, font: { size: 24, color: "#333", bold: true } },
-          { id: 2, label: "Rohini Kumar", color: "#e74c3c", size: 30 },
-          { id: 3, label: "Raviraj Dave", color: "#3498db", size: 30 },
-          { id: 4, label: "Masooma Batool", color: "#2ecc71", size: 30 },
-          { id: 5, label: "Adrija Datta", color: "#9b59b6", size: 30 },
-          { id: 6, label: "Udit Bhatia", color: "#1abc9c", size: 30 },
-          { id: 7, label: "Christian Schmidt", color: "#f1c40f", size: 30 },
-          { id: 8, label: "Wim de Vries", color: "#e67e22", size: 30 },
-          { id: 9, label: "Karsten Rinke", color: "#34495e", size: 30 },
-          { id: 10, label: "Divya Upadhyay", color: "#d35400", size: 30 },
-          { id: 11, label: "Subimal Ghosh", color: "#8e44ad", size: 30 }
-        ]);
-
-        const edges = new vis.DataSet([
-          { from: 1, to: 2 },
-          { from: 1, to: 3 },
-          { from: 1, to: 4 },
-          { from: 1, to: 5 },
-          { from: 1, to: 6 },
-          { from: 1, to: 7 },
-          { from: 1, to: 8 },
-          { from: 1, to: 9 },
-          { from: 1, to: 10 },
-          { from: 1, to: 11 }
-        ]);
-
-        const container = document.getElementById('network');
-        const data = { nodes: nodes, edges: edges };
-        const options = {
-          layout: {
-            randomSeed: 2, // Try changing this if you want different spread
-            improvedLayout: true
-          },
-          nodes: {
-            borderWidth: 2,
-            shadow: true
-          },
-          edges: {
-            color: { color: '#aaa' },
-            arrows: {
-              to: { enabled: false }
-            },
-            smooth: {
-              type: 'dynamic'
-            }
-          },
-          physics: {
-            enabled: true,
-            barnesHut: {
-              gravitationalConstant: -30000,
-              centralGravity: 0.1,
-              springLength: 200,
-              springConstant: 0.05,
-              damping: 0.09
-            },
-            stabilization: {
-              iterations: 2500
-            }
-          },
-          interaction: {
-            hover: true,
-            tooltipDelay: 200
-          }
-        };
-
-        const network = new vis.Network(container, data, options);
-
-        // Open Google Scholar on click
-        network.on("click", function (params) {
-          if (params.nodes.length === 1 && params.nodes[0] === 1) {
-            window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank');
-          }
-        });
-      }
-
-      drawNetwork();
-    </script>
-  </main>
+  <div id="network"></div>
 
   <footer>
-    <p style="text-align: center;">&copy; 2025 Shekhar Sharan Goyal</p>
+    &copy; 2025 Shekhar Sharan Goyal
   </footer>
+
+  <script type="text/javascript">
+    function drawNetwork() {
+      const nodes = new vis.DataSet([
+        { id: 1, label: "Shekhar Sharan Goyal", shape: "circularImage",
+          image: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
+          size: 55, font: { size: 22, color: "#333", bold: true }
+        },
+        { id: 2, label: "Rohini Kumar", color: "#FF6B6B", size: 35 },
+        { id: 3, label: "Raviraj Dave", color: "#6BCB77", size: 35 },
+        { id: 4, label: "Masooma Batool", color: "#4D96FF", size: 35 },
+        { id: 5, label: "Adrija Datta", color: "#FFD93D", size: 35 },
+        { id: 6, label: "Udit Bhatia", color: "#845EC2", size: 35 },
+        { id: 7, label: "Christian Schmidt", color: "#00C9A7", size: 35 },
+        { id: 8, label: "Wim de Vries", color: "#FFC75F", size: 35 },
+        { id: 9, label: "Karsten Rinke", color: "#FF9671", size: 35 },
+        { id: 10, label: "Divya Upadhyay", color: "#0081CF", size: 35 },
+        { id: 11, label: "Subimal Ghosh", color: "#C34A36", size: 35 }
+      ]);
+
+      const edges = new vis.DataSet([
+        { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 },
+        { from: 1, to: 6 }, { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 },
+        { from: 1, to: 10 }, { from: 1, to: 11 },
+        // Mutual collaborations (randomly added to make it dense)
+        { from: 2, to: 3 }, { from: 2, to: 5 }, { from: 2, to: 7 },
+        { from: 3, to: 6 }, { from: 3, to: 9 },
+        { from: 4, to: 5 }, { from: 4, to: 8 }, { from: 4, to: 10 },
+        { from: 5, to: 6 }, { from: 5, to: 11 },
+        { from: 6, to: 7 }, { from: 7, to: 8 }, { from: 8, to: 9 },
+        { from: 9, to: 10 }, { from: 10, to: 11 },
+      ]);
+
+      const container = document.getElementById('network');
+      const data = { nodes: nodes, edges: edges };
+      const options = {
+        layout: {
+          improvedLayout: true
+        },
+        nodes: {
+          borderWidth: 2,
+          shadow: true,
+          font: { size: 18 },
+          scaling: { min: 20, max: 50 }
+        },
+        edges: {
+          color: { color: '#999' },
+          width: 2,
+          smooth: { type: 'continuous' }
+        },
+        physics: {
+          enabled: true,
+          barnesHut: {
+            gravitationalConstant: -30000,
+            centralGravity: 0.3,
+            springLength: 150,
+            springConstant: 0.05,
+            damping: 0.09
+          },
+          stabilization: {
+            iterations: 2000,
+            updateInterval: 100
+          }
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 200,
+          navigationButtons: true,
+          keyboard: true
+        }
+      };
+
+      const network = new vis.Network(container, data, options);
+
+      // Click to open Google Scholar
+      network.on("click", function (params) {
+        if (params.nodes.length === 1 && params.nodes[0] === 1) {
+          window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank');
+        }
+      });
+    }
+
+    drawNetwork();
+  </script>
 </body>
 </html>
