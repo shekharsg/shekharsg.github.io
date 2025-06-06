@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>About | Shekhar Sharan Goyal</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -43,59 +42,21 @@
       border-radius: 10px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-    section {
-      margin-bottom: 2.5rem;
-    }
     h2 {
       color: #0077aa;
       border-bottom: 2px solid #0077aa;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
     }
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    ul li {
-      margin-bottom: 1rem;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-    ul li::before {
-      content: "\2022";
-      position: absolute;
-      left: 0;
-      color: #0077aa;
-    }
     #network {
-      height: 600px;
-      border: 1px solid #ddd;
+      height: 700px;
+      border: 2px solid #ddd;
       border-radius: 10px;
       margin-top: 20px;
     }
-    .download-cv {
-      display: block;
-      width: fit-content;
-      margin: 2rem auto 0;
-      padding: 0.75rem 1.5rem;
-      background-color: #0077aa;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .download-cv:hover {
-      background-color: #005c88;
-    }
   </style>
 
-  <!-- vis-network library -->
   <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
-  <link href="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
-  <!-- html2pdf.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
@@ -112,30 +73,28 @@
     </nav>
   </header>
 
-  <main id="cv-content">
+  <main>
     <section>
       <h2>Collaborative Network</h2>
       <div id="network"></div>
     </section>
 
-    <button class="download-cv" onclick="downloadCV()">Download Detailed CV (PDF)</button>
-
     <script type="text/javascript">
-      async function drawNetwork() {
+      function drawNetwork() {
         const nodes = new vis.DataSet([
-          { id: 1, label: "Shekhar Sharan Goyal", shape: "circularImage", 
+          { id: 1, label: "Shekhar Sharan Goyal", color: "#f39c12", shape: "circularImage", 
             image: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png", 
-            size: 50, font: { color: "black", size: 20, bold: true } },
-          { id: 2, label: "Rohini Kumar", color: "#6fb1fc" },
-          { id: 3, label: "Raviraj Dave", color: "#6fb1fc" },
-          { id: 4, label: "Masooma Batool", color: "#6fb1fc" },
-          { id: 5, label: "Adrija Datta", color: "#6fb1fc" },
-          { id: 6, label: "Udit Bhatia", color: "#6fb1fc" },
-          { id: 7, label: "Christian Schmidt", color: "#6fb1fc" },
-          { id: 8, label: "Wim de Vries", color: "#6fb1fc" },
-          { id: 10, label: "Karsten Rinke", color: "#6fb1fc" },
-          { id: 11, label: "Divya Upadhyay", color: "#6fb1fc" },
-          { id: 12, label: "Subimal Ghosh", color: "#6fb1fc" }
+            size: 50, font: { size: 24, color: "#333", bold: true } },
+          { id: 2, label: "Rohini Kumar", color: "#e74c3c", size: 30 },
+          { id: 3, label: "Raviraj Dave", color: "#3498db", size: 30 },
+          { id: 4, label: "Masooma Batool", color: "#2ecc71", size: 30 },
+          { id: 5, label: "Adrija Datta", color: "#9b59b6", size: 30 },
+          { id: 6, label: "Udit Bhatia", color: "#1abc9c", size: 30 },
+          { id: 7, label: "Christian Schmidt", color: "#f1c40f", size: 30 },
+          { id: 8, label: "Wim de Vries", color: "#e67e22", size: 30 },
+          { id: 9, label: "Karsten Rinke", color: "#34495e", size: 30 },
+          { id: 10, label: "Divya Upadhyay", color: "#d35400", size: 30 },
+          { id: 11, label: "Subimal Ghosh", color: "#8e44ad", size: 30 }
         ]);
 
         const edges = new vis.DataSet([
@@ -146,64 +105,58 @@
           { from: 1, to: 6 },
           { from: 1, to: 7 },
           { from: 1, to: 8 },
+          { from: 1, to: 9 },
           { from: 1, to: 10 },
-          { from: 1, to: 11 },
-          { from: 1, to: 12 }
+          { from: 1, to: 11 }
         ]);
 
         const container = document.getElementById('network');
         const data = { nodes: nodes, edges: edges };
         const options = {
           layout: {
+            randomSeed: 2, // Try changing this if you want different spread
             improvedLayout: true
           },
           nodes: {
-            shape: 'dot',
-            scaling: { min: 10, max: 30 },
-            font: { size: 16 },
-            shadow: true,
-            borderWidth: 2
-          },
-          edges: {
-            width: 2,
-            color: { color: '#0077aa' },
+            borderWidth: 2,
             shadow: true
           },
+          edges: {
+            color: { color: '#aaa' },
+            arrows: {
+              to: { enabled: false }
+            },
+            smooth: {
+              type: 'dynamic'
+            }
+          },
           physics: {
-            stabilization: { iterations: 200 },
+            enabled: true,
             barnesHut: {
               gravitationalConstant: -30000,
-              centralGravity: 0.3,
-              springLength: 150,
-              springConstant: 0.04
+              centralGravity: 0.1,
+              springLength: 200,
+              springConstant: 0.05,
+              damping: 0.09
+            },
+            stabilization: {
+              iterations: 2500
             }
           },
           interaction: {
             hover: true,
-            tooltipDelay: 100
+            tooltipDelay: 200
           }
         };
 
         const network = new vis.Network(container, data, options);
 
-        // Add click event to open Google Scholar profile
+        // Open Google Scholar on click
         network.on("click", function (params) {
           if (params.nodes.length === 1 && params.nodes[0] === 1) {
-            window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank'); // <-- Replace this
+            window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank');
           }
         });
-      }
-
-      function downloadCV() {
-        const element = document.getElementById('cv-content');
-        const opt = {
-          margin: 0.5,
-          filename: 'Shekhar_Sharan_Goyal_CV.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
       }
 
       drawNetwork();
@@ -211,7 +164,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 Shekhar Sharan Goyal</p>
+    <p style="text-align: center;">&copy; 2025 Shekhar Sharan Goyal</p>
   </footer>
 </body>
 </html>
