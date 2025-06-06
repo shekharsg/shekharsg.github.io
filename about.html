@@ -66,17 +66,19 @@
         { id: 8, label: "Wim de Vries", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
         { id: 9, label: "Karsten Rinke", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
         { id: 10, label: "Divya Upadhyay", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 11, label: "Subimal Ghosh", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } }
+        { id: 11, label: "Subimal Ghosh", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+                { id: 12, label: "Shaonli", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
+
       ]);
 
       const edges = new vis.DataSet([
         { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 },
         { from: 1, to: 6 }, { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 },
-        { from: 1, to: 10 }, { from: 1, to: 11 },{ from: 6, to: 11 },{ from: 10, to: 11 },
+        { from: 1, to: 10 }, { from: 1, to: 11 },{ from: 1, to: 12 },{ from: 6, to: 11 },{ from: 10, to: 11 },
         { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
-        { from: 4, to: 5 }, { from: 4, to: 8 }, { from: 5, to: 6 },
+        { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 },
         { from: 7, to: 2 }, { from: 8, to: 2 }, { from: 9, to: 2 },
-        { from: 10, to: 6 }
+        { from: 10, to: 6 },{ from: 12, to: 6 }
       ]);
 
       const container = document.getElementById('network');
