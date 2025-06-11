@@ -1,150 +1,351 @@
+You said:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Collaboration Network | Shekhar Sharan Goyal</title>
+  <meta charset="UTF-8" />
+  <title>About | Shekhar Sharan Goyal</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: #f9f9f9;
+      background: #f4f4f4;
       color: #333;
     }
     header {
-      background: linear-gradient(to right, #003366, #005c99);
+      background: linear-gradient(to right, #005c88, #0077aa);
       color: white;
-      padding: 2rem;
+      padding: 3rem 2rem 2rem;
       text-align: center;
     }
     header h1 {
       margin: 0;
       font-size: 2.5rem;
     }
-    #network {
-      width: 90%;
-      height: 700px;
-      margin: 40px auto;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      background: white;
-    }
-    footer {
-      text-align: center;
+    nav {
+      background: rgba(0, 0, 0, 0.7);
       padding: 1rem;
-      font-size: 0.9rem;
-      background: #f0f0f0;
-      color: #555;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    section {
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      color: #0077aa;
+      border-bottom: 2px solid #0077aa;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul li {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    ul li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      color: #0077aa;
+    }
+    #network {
+      height: 500px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .download-cv {
+      display: block;
+      width: fit-content;
+      margin: 2rem auto 0;
+      padding: 0.75rem 1.5rem;
+      background-color: #0077aa;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .download-cv:hover {
+      background-color: #005c88;
     }
   </style>
-  <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+
+  <!-- vis-network library -->
+  <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+  <link href="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+  <!-- html2pdf.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
   <header>
-    <h1>Collaboration Network</h1>
+    <h1>Dr. Shekhar Sharan Goyal</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="publications.html">Publications</a>
+      <a href="visualization.html">Visualization</a>
+      <a href="science_outreach.html">Science Outreach</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <div id="network"></div>
+  <main id="cv-content">
+    <section>
+      <h2>Brief Biography</h2>
+      <p>
+        I am Dr. Shekhar Sharan Goyal, a Research Scientist at the Helmholtz Centre for Environmental Research (UFZ), Leipzig, Germany. 
+        I specialize in agricultural nutrient management, ecohydrology, and sustainable trade networks. 
+        My current research focuses on stream-temperature modeling under the <strong>FluSeeQ project</strong>, aiming to forecast hydrological stress across Germany.
+      </p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul>
+        <li>
+          <strong>Ph.D. in Earth Sciences</strong>, Indian Institute of Technology Gandhinagar (2020–2024, submitted)<br>
+          Advisor: Prof. Udit Bhatia<br>
+          Dissertation: <em>Quantifying Nutrient Pollution in Agricultural Systems, Restructuring Strategies for Management, and Assessing Implications on Trade Networks</em>
+        </li>
+        <li>
+          <strong>M.Sc. in Geology (Hons)</strong>, Indian Institute of Technology Kharagpur (2016–2018)<br>
+          Advisor: Prof. Abhijit Mukherjee<br>
+          Thesis: <em>Groundwater Evolution of Central Gangetic Aquifer System in the Vicinity of Varanasi</em>
+        </li>
+        <li>
+          <strong>B.Sc. in Geology (Hons)</strong>, Banaras Hindu University (2013–2016)
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Research Experience</h2>
+      <ul>
+        <li>
+          <strong>Research Scientist</strong>, UFZ Leipzig (2024–Present)<br>
+          - Stream-temperature modeling under the FluSeeQ project.<br>
+          - Sustainable agricultural systems focusing on nutrient management and trade networks.
+        </li>
+        <li>
+          <strong>Visiting Researcher</strong>, UFZ Leipzig (Aug–Dec 2023)<br>
+          - Developed district-level nitrogen surplus datasets for Indian agriculture.<br>
+          - Nutrient pollution impact analysis for sustainable policy support.
+        </li>
+        <li>
+          <strong>Summer Intern</strong>, Wadia Institute of Himalayan Geology (2017)<br>
+          - Analyzed tectonic deformation and fault scarps in the Lower Himalayas.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Research Interests</h2>
+      <ul>
+        <li>Agricultural nitrogen and phosphorus pollution</li>
+        <li>Ecohydrology and climate adaptation in cropping systems</li>
+        <li>Interstate trade networks and their environmental footprint</li>
+        <li>Stream temperature modeling and hydrologic stress analysis</li>
+        <li>Sustainable policy design and environmental resilience</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Grants & Awards</h2>
+      <ul>
+        <li>EGU Outstanding Student and PhD candidate Presentation (OSPP) Award, EGU General Assembly (2025)</li>
+        <li>IITGN Overseas Research Fellowship (2023)</li>
+        <li>GATE Scholarship (98.7 percentile, Earth Sciences), MHRD, India (2019)</li>
+        <li>JAM Scholarship (98.5 percentile, Geology), MHRD, India (2016)</li>
+        <li>CSIR-NET (LS) – Rank 15 (Geology), CSIR, India (2019)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <ul>
+        <li>Goyal, S.S., Dave, R., Kumar, R., Bhatia, U. (2024). Indian interstate trade exacerbates nutrient pollution in food production hubs. <em>Communications Earth & Environment</em> (Nature Portfolio).</li>
+        <li>Goyal, S.S., Kumar, R., Bhatia, U. (2024). Assessing temporal dynamics of nitrogen surplus in Indian agriculture: district scale data from 1966 to 2017. <em>Scientific Data</em> (Nature Portfolio).</li>
+        <li><em>Under Review:</em> Goyal, S.S., Kumar, R., Bhatia, U. Nutrient-Centric Restructuring Yields Greater Cross-benefits in Indian Agriculture. (Nature Communications)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Conference Presentations</h2>
+      <ul>
+        <li>(P) Goyal, S.S., Dave, R., Bhatia, U., Kumar, R. (2025). Towards Disentangling Environmental Costs of India's Agricultural Trade Network. <em>EGU General Assembly 2025</em>. DOI: <a href="https://doi.org/10.5194/egusphere-egu25-776" target="_blank">10.5194/egusphere-egu25-776</a></li>
+    
+        <li>(I) Goyal, S.S., et al. (2024). Agricultural Pollution in Indian Interstate Trade Network. <em>EGU General Assembly 2024</em>.</li>
+    
+        <li>(I) Bhatia, U., Goyal, S.S., Kumar, R. (2023). Restructuring the Indian Agricultural System towards Sustainability. <em>EGU General Assembly 2023</em>. DOI: <a href="https://doi.org/10.5194/egusphere-egu23-5975" target="_blank">10.5194/egusphere-egu23-5975</a></li>
+    
+        <li>(P) Goyal, S.S., Bhatia, U. (2023). Trade-driven Greenhouse Gas Emissions in India. <em>EGU General Assembly 2023</em>. DOI: <a href="https://doi.org/10.5194/egusphere-egu23-741" target="_blank">10.5194/egusphere-egu23-741</a></li>
+    
+        <li>(P) Goyal, S.S., Bhatia, U. (2021). Urbanization Impact on Urban River Water Quality. <em>AGU Fall Meeting 2021</em>.</li>
+      </ul>
+</section>
+    <section>
+      
+      <h2>Current Projects</h2>
+      <ul>
+        <li>C-Narmada (2024–2025) – Agricultural and Nutrient Dynamics in the Narmada River Basin</li>
+        <li>FluSeeQ (2025–Ongoing)– Stream-Temperature Modeling and Energy Forecasting across Germany</li>
+      </ul>
+      <h2>Project Proposals Applied</h2>
+      <ul>
+        <li>UFZ UNLOCK (2025) – Benchmark Dataset for Agriculture</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Teaching Experience</h2>
+      <ul>
+        <li>Lab Teaching Assistant, IIT Gandhinagar:
+          <ul>
+            <li>Earth Surface Processes in the Anthropocene (2024)</li>
+            <li>River Morphology and Ecology (2023)</li>
+            <li>Modeling Earth System and Sustainability (2022)</li>
+            <li>Biodiversity Conservation and Sustainable Development (2020)</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Field Experience</h2>
+      <ul>
+        <li>River Water Quality Sampling, Surat City (2022)</li>
+        <li>Groundwater Quality Survey, Varanasi City (2017)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <ul>
+        <li><strong>Programming:</strong> Python, R, MATLAB, C, C++, LaTeX</li>
+        <li><strong>Climate Data Handling:</strong> NCL, CDO, NCO</li>
+        <li><strong>Software:</strong> ArcGIS, QGIS, SWAT, MIKE ECOLAB, QUAL2E, HEC-RAS</li>
+        <li><strong>Instrumentation:</strong> EPMA, Ion Chromatograph, ICP-OES, pH Meter</li>
+        <li><strong>Languages:</strong> Fluent in English and Hindi</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Leadership & Professional Activities</h2>
+      <ul>
+        <li>Organizer, Workshop on "Resilience of Power and Allied Lifeline Infrastructure Systems," IITGN (2022)</li>
+        <li>Organizer, Workshop on "From Lab to Land: Technology Transfer for Farmers," IITGN (2024)</li>
+        <li>Executive Member, Prithvi, IIT Kharagpur (2017)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Collaborative Network</h2>
+      <div id="network"></div>
+    </section>
+
+    <button class="download-cv" onclick="downloadCV()">Download Detailed CV (PDF)</button>
+
+<script type="text/javascript">
+  async function drawNetwork() {
+    const nodes = new vis.DataSet([
+      { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: "#0077aa", font: { color: "white", size: 20 }, size: 30 },
+      { id: 2, label: "Rohini Kumar" },
+      { id: 3, label: "Raviraj Dave" },
+      { id: 4, label: "Masooma Batool" },
+      { id: 5, label: "Adrija Datta" },
+      { id: 6, label: "Udit Bhatia" },
+      { id: 7, label: "Christian Schmidt" },
+      { id: 8, label: "Wim de Vries" },
+      { id: 10, label: "Karsten Rinke" },
+      { id: 11, label: "Divya Upadhyay" },
+      { id: 12, label: "Subimal Ghosh" }
+    ]);
+
+    const edges = new vis.DataSet([
+      { from: 1, to: 2 },
+      { from: 1, to: 3 },
+      { from: 1, to: 4 },
+      { from: 1, to: 5 },
+      { from: 1, to: 6 },
+      { from: 1, to: 7 },
+      { from: 1, to: 8 },
+      { from: 1, to: 10 },
+      { from: 1, to: 11 },
+      { from: 1, to: 12 }
+    ]);
+
+        const container = document.getElementById('network');
+        const data = { nodes: nodes, edges: edges };
+        const options = {
+          nodes: {
+            shape: 'dot',
+            size: 16,
+            font: { size: 14 },
+            borderWidth: 2
+          },
+          edges: {
+            width: 2,
+            color: { color: '#0077aa' }
+          },
+          physics: {
+            forceAtlas2Based: {
+              gravitationalConstant: -100,
+              centralGravity: 0.02,
+              springLength: 100,
+              springConstant: 0.08
+            },
+            maxVelocity: 50,
+            solver: 'forceAtlas2Based',
+            timestep: 0.35,
+            stabilization: { iterations: 150 }
+          }
+        };
+
+        new vis.Network(container, data, options);
+      }
+
+      function downloadCV() {
+        const element = document.getElementById('cv-content');
+        const opt = {
+          margin:       0.5,
+          filename:     'Shekhar_Sharan_Goyal_CV.pdf',
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2 },
+          jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+      }
+
+      drawNetwork();
+    </script>
+  </main>
 
   <footer>
-    &copy; 2025 Shekhar Sharan Goyal
+    <p>&copy; 2025 Shekhar Sharan Goyal</p>
   </footer>
-
-  <script>
-    function drawNetwork() {
-      const nodes = new vis.DataSet([
-        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle",
-          color: { background: "#005c99", border: "#003366", highlight: { background: "#007acc", border: "#005c99" } },
-          font: { color: "#ffffff", size: 22, bold: true }, size: 25
-        },
-        { id: 2, label: "Rohini Kumar", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 3, label: "Raviraj Dave", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 4, label: "Masooma Batool", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 5, label: "Adrija Datta", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 6, label: "Udit Bhatia", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 7, label: "Christian Schmidt", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 8, label: "Wim de Vries", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 9, label: "Karsten Rinke", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 10, label: "Divya Upadhyay", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-        { id: 11, label: "Subimal Ghosh", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-                { id: 12, label: "Shaonli", color: { background: "#dddddd", border: "#bbbbbb" }, font: { size: 18 } },
-
-      ]);
-
-      const edges = new vis.DataSet([
-        { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 },
-        { from: 1, to: 6 }, { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 },
-        { from: 1, to: 10 }, { from: 1, to: 11 },{ from: 1, to: 12 },{ from: 6, to: 11 },{ from: 10, to: 11 },
-        { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
-        { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 },
-        { from: 7, to: 2 }, { from: 8, to: 2 }, { from: 9, to: 2 },
-        { from: 10, to: 6 },{ from: 12, to: 6 }
-      ]);
-
-      const container = document.getElementById('network');
-      const data = { nodes: nodes, edges: edges };
-      const options = {
-        layout: {
-          randomSeed: 15,
-          improvedLayout: true
-        },
-        nodes: {
-          borderWidth: 1,
-          shadow: {
-            enabled: true,
-            color: 'rgba(0,0,0,0.1)',
-            size: 10,
-            x: 5,
-            y: 5
-          },
-          scaling: {
-            min: 10,
-            max: 40
-          }
-        },
-        edges: {
-          color: {
-            color: "#cccccc",
-            highlight: "#007acc",
-            hover: "#007acc"
-          },
-          width: 2,
-          smooth: {
-            type: "dynamic"
-          }
-        },
-        physics: {
-          solver: "forceAtlas2Based",
-          forceAtlas2Based: {
-            gravitationalConstant: -50,
-            centralGravity: 0.01,
-            springLength: 150,
-            springConstant: 0.05,
-            damping: 0.4
-          },
-          stabilization: {
-            iterations: 150
-          }
-        },
-        interaction: {
-          hover: true,
-          tooltipDelay: 200,
-          navigationButtons: true,
-          keyboard: true
-        }
-      };
-
-      const network = new vis.Network(container, data, options);
-
-      // Click to open Google Scholar
-      network.on("click", function (params) {
-        if (params.nodes.length === 1 && params.nodes[0] === 1) {
-          window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank');
-        }
-      });
-    }
-
-    drawNetwork();
-  </script>
 </body>
-</html>
+</html> 
