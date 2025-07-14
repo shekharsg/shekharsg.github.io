@@ -2,117 +2,187 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About | Shekhar Sharan Goyal</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CV of Dr. Shekhar Sharan Goyal – Research Scientist, UFZ Leipzig, Germany" />
+  <title>Dr. Shekhar Sharan Goyal – CV</title>
+  <link rel="icon" href="favicon.ico" />
+  
+  <!-- Styles -->
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7fbfc;
+      color: #222;
       margin: 0;
-      background: #f4f4f4;
-      color: #333;
+      padding: 0;
     }
     header {
-      background: linear-gradient(to right, #005c88, #0077aa);
-      color: white;
-      padding: 3rem 2rem 2rem;
+      background: #0077aa;
+      color: #fff;
+      padding: 30px 0 15px 0;
       text-align: center;
+      border-bottom: 4px solid #005c99;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    nav {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1rem;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.5em;
+      letter-spacing: 1px;
     }
     main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2rem;
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
       border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      padding: 40px 30px;
     }
     section {
-      margin-bottom: 2.5rem;
+      margin-bottom: 32px;
     }
     h2 {
       color: #0077aa;
-      border-bottom: 2px solid #0077aa;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
+      margin-top: 0;
+      font-size: 1.35em;
+      margin-bottom: 12px;
+      border-left: 4px solid #0077aa;
+      padding-left: 10px;
+      font-weight: 600;
     }
     ul {
-      list-style: none;
-      padding-left: 0;
+      margin-top: 0;
+      padding-left: 18px;
     }
-    ul li {
-      margin-bottom: 1rem;
-      padding-left: 1.2rem;
-      position: relative;
-    }
-    ul li::before {
-      content: "\2022";
-      position: absolute;
-      left: 0;
-      color: #0077aa;
-    }
-    #network {
-      width: 100%;
-      height: 700px;
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      background: white;
+    li {
+      margin-bottom: 7px;
     }
     .download-cv {
-      display: block;
-      width: fit-content;
-      margin: 2rem auto 0;
-      padding: 0.75rem 1.5rem;
-      background-color: #0077aa;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
+      background: #0077aa;
+      color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-size: 1.1em;
+      font-weight: 600;
       cursor: pointer;
+      margin: 20px auto 0 auto;
+      transition: background 0.2s;
+      display: block;
     }
     .download-cv:hover {
-      background-color: #005c88;
+      background: #005c99;
+    }
+    #network {
+      height: 600px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 20px;
+      background: #fafcff;
+    }
+    @media (max-width: 600px) {
+      main { padding: 12px 2vw; }
+      #network { height: 350px; }
     }
   </style>
-
-  <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
+
   <header>
     <h1>Dr. Shekhar Sharan Goyal</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="publications.html">Publications</a>
-      <a href="visualization.html">Visualization</a>
-      <a href="science_outreach.html">Science Outreach</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <p>Research Scientist, UFZ Leipzig, Germany</p>
   </header>
 
   <main id="cv-content">
-    <!-- Keep all your existing sections like Biography, Education, etc. -->
+    <section>
+      <h2>Brief Biography</h2>
+      <p>I am Dr. Shekhar Sharan Goyal, a Research Scientist at the Helmholtz Centre for Environmental Research (UFZ), Leipzig, Germany. I specialize in agricultural nutrient management, ecohydrology, and sustainable trade networks. My current research focuses on stream-temperature modeling under the FluSeeQ project, aiming to forecast hydrological stress across Germany.</p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Ph.D.</strong>, Earth Sciences, IIT Gandhinagar (2020–2024, submitted) – Advisor: Prof. Udit Bhatia</li>
+        <li><strong>M.Sc.</strong>, Geology, IIT Kharagpur (2016–2018) – Advisor: Prof. Abhijit Mukherjee</li>
+        <li><strong>B.Sc.</strong>, Geology, Banaras Hindu University (2013–2016)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Research Experience</h2>
+      <ul>
+        <li><strong>Research Scientist</strong>, UFZ Leipzig (2024–Present)</li>
+        <li><strong>Visiting Researcher</strong>, UFZ Leipzig (Aug–Dec 2023)</li>
+        <li><strong>Summer Intern</strong>, WIHG (2017)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Research Interests</h2>
+      <ul>
+        <li>Agricultural nitrogen and phosphorus pollution</li>
+        <li>Ecohydrology and climate adaptation</li>
+        <li>Interstate trade networks</li>
+        <li>Stream temperature modeling</li>
+        <li>Sustainable policy design</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Grants & Awards</h2>
+      <ul>
+        <li>EGU OSPP Award (2025)</li>
+        <li>IITGN Overseas Research Fellowship (2023)</li>
+        <li>CSIR-NET (LS) Rank 15, GATE (98.7%), JAM (98.5%)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <ul>
+        <li><strong>Goyal, S.S.</strong> et al. (2024). Indian interstate trade exacerbates nutrient pollution... <em>Nature Portfolio</em>.</li>
+        <li><strong>Goyal, S.S.</strong> et al. (2024). Assessing temporal dynamics of nitrogen surplus... <em>Nature Portfolio</em>.</li>
+        <li><strong>Under Review</strong>: Nutrient-Centric Restructuring... <em>Nature Communications</em>.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Conference Presentations</h2>
+      <ul>
+        <li>EGU 2025, 2024, 2023; AGU 2021</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Current Projects</h2>
+      <ul>
+        <li><strong>C-Narmada</strong> – Nutrient Dynamics in the Narmada River Basin</li>
+        <li><strong>FluSeeQ</strong> – Stream-Temperature & Energy Forecasting</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Teaching & Field Experience</h2>
+      <ul>
+        <li>TA: Earth Surface Processes, River Ecology, Earth System Modeling</li>
+        <li>Field: Surat (2022), Varanasi (2017)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <ul>
+        <li><strong>Programming:</strong> Python, R, MATLAB, LaTeX</li>
+        <li><strong>Software:</strong> ArcGIS, QGIS, SWAT, HEC-RAS</li>
+        <li><strong>Languages:</strong> English, Hindi</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Leadership & Activities</h2>
+      <ul>
+        <li>Organizer: Infrastructure Resilience Workshop (2022), Tech Transfer for Farmers (2024)</li>
+        <li>Executive Member: Prithvi, IIT KGP</li>
+      </ul>
+    </section>
 
     <section>
       <h2>Collaborative Network</h2>
@@ -122,14 +192,15 @@
     <button class="download-cv" onclick="downloadCV()">Download Detailed CV (PDF)</button>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Shekhar Sharan Goyal</p>
-  </footer>
+  <!-- JS Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+  <!-- Network Graph Script -->
   <script>
     function drawNetwork() {
       const nodes = new vis.DataSet([
-        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: { background: "#005c99", border: "#003366", highlight: { background: "#007acc", border: "#005c99" } }, font: { color: "#ffffff", size: 22, bold: true }, size: 30 },
+        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: { background: "#005c99", border: "#003366" }, font: { color: "#ffffff", size: 22, bold: true }, size: 30 },
         { id: 2, label: "Rohini Kumar" },
         { id: 3, label: "Raviraj Dave" },
         { id: 4, label: "Masooma Batool" },
@@ -146,8 +217,8 @@
       const edges = new vis.DataSet([
         { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 },
         { from: 1, to: 6 }, { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 },
-        { from: 1, to: 10 }, { from: 1, to: 11 }, { from: 1, to: 12 }, { from: 6, to: 11 }, { from: 10, to: 11 },
-        { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
+        { from: 1, to: 10 }, { from: 1, to: 11 }, { from: 1, to: 12 }, { from: 6, to: 11 },
+        { from: 10, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
         { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 },
         { from: 7, to: 2 }, { from: 8, to: 2 }, { from: 9, to: 2 },
         { from: 10, to: 6 }, { from: 12, to: 6 }
@@ -157,16 +228,6 @@
       const data = { nodes: nodes, edges: edges };
       const options = {
         layout: { randomSeed: 15, improvedLayout: true },
-        nodes: {
-          borderWidth: 1,
-          shadow: { enabled: true, color: 'rgba(0,0,0,0.1)', size: 10, x: 5, y: 5 },
-          scaling: { min: 10, max: 40 }
-        },
-        edges: {
-          color: { color: "#cccccc", highlight: "#007acc", hover: "#007acc" },
-          width: 2,
-          smooth: { type: "dynamic" }
-        },
         physics: {
           solver: "forceAtlas2Based",
           forceAtlas2Based: {
@@ -185,29 +246,21 @@
           keyboard: true
         }
       };
-
       const network = new vis.Network(container, data, options);
-
-      network.on("click", function (params) {
-        if (params.nodes.length === 1 && params.nodes[0] === 1) {
-          window.open('https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID', '_blank');
-        }
-      });
     }
 
     function downloadCV() {
       const element = document.getElementById('cv-content');
-      const opt = {
+      html2pdf().from(element).set({
         margin: 0.5,
         filename: 'Shekhar_Sharan_Goyal_CV.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
+      }).save();
     }
 
-    drawNetwork();
+    document.addEventListener('DOMContentLoaded', drawNetwork);
   </script>
 </body>
 </html>
