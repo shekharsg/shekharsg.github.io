@@ -2,74 +2,269 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | Shekhar Sharan Goyal</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dr. Shekhar Sharan Goyal – CV</title>
+  <meta name="description" content="Professional CV of Dr. Shekhar Sharan Goyal, Research Scientist at UFZ Leipzig, Germany." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    :root {
+      --primary: #004080;
+      --light-bg: #f9f9fb;
+      --accent: #0077aa;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: var(--light-bg);
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      font-weight: 600;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 1.1rem;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 50px 40px;
+      box-sizing: border-box;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .download-cv {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 30px auto 0;
+      display: block;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .download-cv:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    #network {
+      height: 500px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #f5f9fc;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 30px 20px; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
 </head>
+
 <body>
   <header>
-    <h1>Shekhar Sharan Goyal</h1>
-    <p>I'm an Earth Scientist working on the Ecohydrological Food-Energy-Water Nexus</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="publications.html">Publications</a>
-      <a href="visualization.html">Visualization</a>
-      <a href="outreach.html">Science Outreach</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <h1>Dr. Shekhar Sharan Goyal</h1>
+    <p>Research Scientist, UFZ Leipzig, Germany</p>
   </header>
 
-  <main class="about-page" style="max-width: 960px; margin: 3rem auto; background: white; padding: 3rem 2rem; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.05);">
+  <main id="cv-content">
     <section>
-      <h2>About Me</h2>
-      <p>I am a Research Scientist at the Helmholtz Centre for Environmental Research (UFZ) in Leipzig, Germany. My work integrates nutrient pollution modeling, ecohydrology, and sustainable agricultural systems. I specialize in the intersection of food, water, and environmental trade-offs, with a focus on data-driven insights for decision support. Currently, I lead stream-temperature modeling in the FluSeeQ project to evaluate climate-driven hydrologic stress across Germany.</p>
+      <h2>Brief Biography</h2>
+      <p>Dr. Shekhar Sharan Goyal is a Research Scientist at the Helmholtz Centre for Environmental Research (UFZ), Leipzig. His research spans agricultural nutrient management, ecohydrology, and sustainable trade networks. Currently, he leads stream-temperature modeling under the FluSeeQ project to anticipate hydrological stress across Germany.</p>
     </section>
 
     <section>
       <h2>Education</h2>
       <ul>
-        <li><strong>Ph.D., Earth Sciences</strong> – Indian Institute of Technology Gandhinagar (2020–2024, submitted)<br>Advisor: Prof. Udit Bhatia | Focus: Nutrient pollution and agri-trade sustainability</li>
-        <li><strong>M.Sc., Geology</strong> – Indian Institute of Technology Kharagpur (2016–2018)<br>Advisor: Prof. Abhijit Mukherjee</li>
-        <li><strong>B.Sc., Geology</strong> – Banaras Hindu University (2013–2016)</li>
+        <li><strong>Ph.D.</strong>, Earth Sciences, IIT Gandhinagar (2020–2024, submitted)</li>
+        <li><strong>M.Sc.</strong>, Geology, IIT Kharagpur (2016–2018)</li>
+        <li><strong>B.Sc.</strong>, Geology, Banaras Hindu University (2013–2016)</li>
       </ul>
     </section>
 
     <section>
       <h2>Research Experience</h2>
       <ul>
-        <li><strong>Research Scientist</strong>, UFZ Leipzig (2025–Present)<br>Stream-temperature modeling (FluSeeQ) and nutrient management modeling</li>
-        <li><strong>Visiting Researcher</strong>, UFZ Leipzig (Aug–Dec 2023)<br>Developed district-scale nitrogen surplus dataset for Indian agriculture</li>
-        <li><strong>Summer Intern</strong>, WIHG (2017)<br>Structural geology and neotectonic mapping in the Himalayas</li>
+        <li>Research Scientist, UFZ Leipzig (2024–Present)</li>
+        <li>Visiting Researcher, UFZ Leipzig (Aug–Dec 2023)</li>
+        <li>Summer Intern, WIHG (2017)</li>
       </ul>
     </section>
 
     <section>
       <h2>Research Interests</h2>
       <ul>
-        <li>Nitrogen and phosphorus cycling in agriculture</li>
-        <li>Ecohydrology and resilient cropping systems</li>
-        <li>Environmental footprints of interstate trade</li>
-        <li>River temperature modeling and hydrologic extremes</li>
-        <li>Sustainable policy design and scenario modeling</li>
+        <li>Nitrogen & phosphorus pollution in agriculture</li>
+        <li>Ecohydrology and climate-resilient cropping</li>
+        <li>Agro-trade networks and environmental footprints</li>
+        <li>Stream temperature dynamics and water stress</li>
+        <li>Policy design for sustainable agriculture</li>
       </ul>
     </section>
 
     <section>
-      <h2>Grants & Distinctions</h2>
+      <h2>Grants & Awards</h2>
       <ul>
-        <li><strong>EGU Outstanding Student and PhD candidate Presentation (OSPP) Award</strong> (2025) – Honored for excellence in presenting interdisciplinary research at the European Geosciences Union General Assembly.</li>
-        <li><strong>Overseas Research Fellowship</strong>, IIT Gandhinagar (2023) – Funded international research residency at UFZ Leipzig to develop high-resolution nutrient surplus datasets for Indian agriculture.</li>
-        <li><strong>CSIR-NET (Lectureship)</strong> – Secured All India Rank 15 in Geology, awarded by the Council of Scientific and Industrial Research (2019).</li>
-        <li><strong>GATE</strong> – Achieved 98.7 percentile in Earth Sciences, earning MHRD funding for advanced research (2019).</li>
-        <li><strong>JAM</strong> – Scored 98.5 percentile nationally in Geology, qualifying for admission to IIT Kharagpur (2016).</li>
+        <li>EGU OSPP Award (2025)</li>
+        <li>IITGN Overseas Research Fellowship (2023)</li>
+        <li>CSIR-NET (LS) Rank 15, GATE (98.7%), JAM (98.5%)</li>
       </ul>
     </section>
+
+    <section>
+      <h2>Publications</h2>
+      <ul>
+        <li>Goyal, S.S. et al. (2024). Indian interstate trade exacerbates nutrient pollution. <em>Communications Earth & Environment</em>.</li>
+        <li>Goyal, S.S. et al. (2024). District-scale nitrogen surplus dataset for Indian agriculture. <em>Scientific Data</em>.</li>
+        <li><em>Under Review</em>: Nutrient-Centric Restructuring in Indian Agriculture. <em>Nature Communications</em>.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Conference Presentations</h2>
+      <ul>
+        <li>EGU 2025, 2024, 2023; AGU 2021</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Current Projects</h2>
+      <ul>
+        <li><strong>C-Narmada</strong> – Agricultural & Nutrient Dynamics in the Narmada Basin</li>
+        <li><strong>FluSeeQ</strong> – Stream Temperature & Hydrologic Forecasting across Germany</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Teaching & Field Experience</h2>
+      <ul>
+        <li>TA: Earth Surface Processes, River Ecology, Earth System Modeling</li>
+        <li>Field: Surat (2022), Varanasi (2017)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <ul>
+        <li><strong>Programming:</strong> Python, R, MATLAB, LaTeX</li>
+        <li><strong>Geospatial & Hydrological Tools:</strong> ArcGIS, QGIS, SWAT, HEC-RAS</li>
+        <li><strong>Languages:</strong> English, Hindi</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Leadership & Engagement</h2>
+      <ul>
+        <li>Workshop Organizer: Infrastructure Resilience (2022), Tech Transfer for Farmers (2024)</li>
+        <li>Executive Member: Prithvi, IIT Kharagpur</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Collaborative Network</h2>
+      <div id="network"></div>
+    </section>
+
+    <button class="download-cv" onclick="downloadCV()">Download Full CV (PDF)</button>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Shekhar Sharan Goyal | Earth Scientist</p>
-  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function drawNetwork() {
+      const nodes = new vis.DataSet([
+        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff", size: 22, bold: true }, size: 30 },
+        { id: 2, label: "Rohini Kumar" }, { id: 3, label: "Raviraj Dave" }, { id: 4, label: "Masooma Batool" },
+        { id: 5, label: "Adrija Datta" }, { id: 6, label: "Udit Bhatia" }, { id: 7, label: "Christian Schmidt" },
+        { id: 8, label: "Wim de Vries" }, { id: 9, label: "Karsten Rinke" }, { id: 10, label: "Divya Upadhyay" },
+        { id: 11, label: "Subimal Ghosh" }, { id: 12, label: "Shaonli" }
+      ]);
+      const edges = new vis.DataSet([
+        { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 }, { from: 1, to: 6 },
+        { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 }, { from: 1, to: 10 }, { from: 1, to: 11 },
+        { from: 1, to: 12 }, { from: 6, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
+        { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 }, { from: 7, to: 2 }, { from: 8, to: 2 },
+        { from: 9, to: 2 }, { from: 10, to: 6 }, { from: 12, to: 6 }
+      ]);
+      const container = document.getElementById('network');
+      const data = { nodes: nodes, edges: edges };
+      const options = {
+        layout: { improvedLayout: true, randomSeed: 42 },
+        physics: {
+          solver: "forceAtlas2Based",
+          stabilization: { iterations: 150 },
+          forceAtlas2Based: {
+            gravitationalConstant: -50,
+            springLength: 150,
+            damping: 0.4
+          }
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 100,
+          navigationButtons: true,
+          keyboard: true
+        }
+      };
+      new vis.Network(container, data, options);
+    }
+
+    function downloadCV() {
+      const element = document.getElementById('cv-content');
+      html2pdf().from(element).set({
+        margin: 0.5,
+        filename: 'Dr_Shekhar_Sharan_Goyal_CV.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      }).save();
+    }
+
+    document.addEventListener('DOMContentLoaded', drawNetwork);
+  </script>
 </body>
 </html>
