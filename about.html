@@ -231,49 +231,49 @@
     © 2025 Dr. Shekhar Sharan Goyal | All rights reserved
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const nodes = new vis.DataSet([
-        { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff", size: 22 }, size: 30 },
-        { id: 2, label: "Rohini Kumar" }, { id: 3, label: "Raviraj Dave" }, { id: 4, label: "Masooma Batool" },
-        { id: 5, label: "Adrija Datta" }, { id: 6, label: "Udit Bhatia" }, { id: 7, label: "Christian Schmidt" },
-        { id: 8, label: "Wim de Vries" }, { id: 9, label: "Karsten Rinke" }, { id: 10, label: "Divya Upadhyay" },
-        { id: 11, label: "Subimal Ghosh" }, { id: 12, label: "Shaonli" }
-      ]);
+<script>
+  const nodes = new vis.DataSet([
+    { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff", size: 22 }, size: 30 },
+    { id: 2, label: "Rohini Kumar" }, { id: 3, label: "Raviraj Dave" }, { id: 4, label: "Masooma Batool" },
+    { id: 5, label: "Adrija Datta" }, { id: 6, label: "Udit Bhatia" }, { id: 7, label: "Christian Schmidt" },
+    { id: 8, label: "Wim de Vries" }, { id: 9, label: "Karsten Rinke" }, { id: 10, label: "Divya Upadhyay" },
+    { id: 11, label: "Subimal Ghosh" }, { id: 12, label: "Shaonli" }
+  ]);
 
-      const edges = new vis.DataSet([
-        { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 }, { from: 1, to: 6 },
-        { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 }, { from: 1, to: 10 }, { from: 1, to: 11 },
-        { from: 1, to: 12 }, { from: 6, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
-        { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 }, { from: 7, to: 2 }, { from: 8, to: 2 },
-        { from: 9, to: 2 }, { from: 10, to: 6 }, { from: 12, to: 6 }
-      ]);
+  const edges = new vis.DataSet([
+    { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 }, { from: 1, to: 6 },
+    { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 }, { from: 1, to: 10 }, { from: 1, to: 11 },
+    { from: 1, to: 12 }, { from: 6, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
+    { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 }, { from: 7, to: 2 }, { from: 8, to: 2 },
+    { from: 9, to: 2 }, { from: 10, to: 6 }, { from: 12, to: 6 }
+  ]);
 
-      const container = document.getElementById('network');
-      const data = { nodes: nodes, edges: edges };
-      const options = {
-        layout: { improvedLayout: true, randomSeed: 42 },
-        physics: {
-          solver: "forceAtlas2Based",
-          stabilization: { iterations: 150 },
-          forceAtlas2Based: {
-            gravitationalConstant: -50,
-            springLength: 150,
-            damping: 0.4
-          }
-        },
-        interaction: {
-          hover: true,
-          tooltipDelay: 100,
-          navigationButtons: true,
-          keyboard: true
-        }
-      };
+  const container = document.getElementById('network');
+  const data = { nodes, edges };
 
-      new vis.Network(container, data, options);
-    });
-  </script>
+  const options = {
+    layout: { improvedLayout: true, randomSeed: 42 },
+    physics: {
+      solver: "forceAtlas2Based",
+      stabilization: { iterations: 150 },
+      forceAtlas2Based: {
+        gravitationalConstant: -50,
+        springLength: 150,
+        damping: 0.4
+      }
+    },
+    interaction: {
+      hover: true,
+      tooltipDelay: 100,
+      navigationButtons: true,
+      keyboard: true
+    }
+  };
+
+  console.log("Initializing vis-network...");
+  new vis.Network(container, data, options);
+</script>
+
 
 </body>
 </html>
