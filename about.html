@@ -454,8 +454,15 @@
     © 2025 Dr. Shekhar Sharan Goyal | All rights reserved
   </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/standalone/umd/vis-network.min.js"></script>
-  
-  <script>
+
+<script>
+(() => {
+  if (!window.vis) {
+    document.getElementById("network").innerHTML =
+      "<p style='padding:14px'>vis-network failed to load (check internet/adblock/CDN).</p>";
+    throw new Error("vis-network not loaded");
+  }
+
   const ALL_NODES = [
     {
       id: 1,
@@ -468,69 +475,60 @@
       font: { color: "#fff", size: 20, face: "Segoe UI" },
       shadow: { enabled: true, size: 14, x: 0, y: 6 }
     },
-    { id: 2, label: "Rohini Kumar",      group: "Coauthor",     title: "Co-author / collaborator" },
-    { id: 3, label: "Raviraj Dave",      group: "Collaborator", title: "Session / research collaboration" },
-    { id: 4, label: "Masooma Batool",    group: "Mentored",     title: "Mentoring / project collaboration" },
-    { id: 5, label: "Adrija Datta",      group: "Mentored",     title: "Mentoring / research collaboration" },
-    { id: 6, label: "Udit Bhatia",       group: "Coauthor",     title: "Co-author / collaboration" },
-    { id: 7, label: "Christian Schmidt", group: "Collaborator", title: "Collaboration" },
-    { id: 8, label: "Wim de Vries",      group: "Coauthor",     title: "Co-author / collaboration" },
-    { id: 9, label: "Karsten Rinke",     group: "Collaborator", title: "Collaboration" },
-    { id: 10, label: "Divya Upadhyay",   group: "Collaborator", title: "Collaboration" },
-    { id: 11, label: "Subimal Ghosh",    group: "Collaborator", title: "Collaboration" },
-    { id: 12, label: "Shaonli",          group: "Mentored",     title: "Collaboration / mentoring" },
+
+    { id: 2, label: "Rohini Kumar",       group: "Coauthor",     title: "Co-author / collaborator" },
+    { id: 3, label: "Raviraj Dave",       group: "Collaborator", title: "Session / research collaboration" },
+    { id: 4, label: "Masooma Batool",     group: "Mentored",     title: "Mentoring / project collaboration" },
+    { id: 5, label: "Adrija Datta",       group: "Mentored",     title: "Mentoring / research collaboration" },
+    { id: 6, label: "Udit Bhatia",        group: "Coauthor",     title: "Co-author / collaboration" },
+    { id: 7, label: "Christian Schmidt",  group: "Collaborator", title: "Collaboration" },
+    { id: 8, label: "Wim de Vries",       group: "Coauthor",     title: "Co-author / collaboration" },
+    { id: 9, label: "Karsten Rinke",      group: "Collaborator", title: "Collaboration" },
+    { id: 10, label: "Divya Upadhyay",    group: "Collaborator", title: "Collaboration" },
+    { id: 11, label: "Subimal Ghosh",     group: "Collaborator", title: "Collaboration" },
+    { id: 12, label: "Shaonli",           group: "Mentored",     title: "Collaboration / mentoring" },
+
     { id: 13, label: "Fanny J. Sarrazin", group: "Coauthor", title: "Co-author" },
-   { id: 14, label: "Gerard H. Ros",     group: "Coauthor", title: "Co-author" },
-  { id: 15, label: "Claudia Giardino",  group: "Coauthor", title: "Co-author" },
-  { id: 16, label: "Mariano Bresciani", group: "Coauthor", title: "Co-author" },
-  { id: 17, label: "Stefan Mühlbauer",  group: "Coauthor", title: "Co-author" }
+    { id: 14, label: "Gerard H. Ros",     group: "Coauthor", title: "Co-author" },
+    { id: 15, label: "Claudia Giardino",  group: "Coauthor", title: "Co-author" },
+    { id: 16, label: "Mariano Bresciani", group: "Coauthor", title: "Co-author" },
+    { id: 17, label: "Stefan Mühlbauer",  group: "Coauthor", title: "Co-author" }
   ];
 
-<script>
-const ALL_EDGES = [];
-const _seen = new Set();
+  // ---- EDGES (single script, no nested <script> tags!) ----
+  const ALL_EDGES = [];
+  const _seen = new Set();
 
-function addEdge(a, b, width = 2) {
-  const x = Math.min(a, b), y = Math.max(a, b);
-  const key = `${x}-${y}`;
-  if (_seen.has(key)) return;
-  _seen.add(key);
-  ALL_EDGES.push({ from: x, to: y, width });
-}
+  function addEdge(a, b, width = 2) {
+    const x = Math.min(a, b), y = Math.max(a, b);
+    const key = `${x}-${y}`;
+    if (_seen.has(key)) return;
+    _seen.add(key);
+    ALL_EDGES.push({ from: x, to: y, width });
+  }
 
-function addClique(ids, width = 2) {
-  for (let i = 0; i < ids.length; i++) {
-    for (let j = i + 1; j < ids.length; j++) {
-      addEdge(ids[i], ids[j], width);
+  function addClique(ids, width = 2) {
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) addEdge(ids[i], ids[j], width);
     }
   }
-}
 
-// ----------------------------------------------------
-// Keep your original “base connectivity” (optional)
-// ----------------------------------------------------
-[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17].forEach(id => addEdge(1, id, 2));
+  // Base links from you
+  [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17].forEach(id => addEdge(1, id, 2));
 
-// Your previous cross-links (add what you want to keep)
-addEdge(6, 11);
-addEdge(2, 3); addEdge(2, 6); addEdge(3, 6);
-addEdge(4, 3); addEdge(4, 8);
-addEdge(5, 6);
-addEdge(7, 2); addEdge(8, 2); addEdge(9, 2);
-addEdge(10, 6); addEdge(12, 6);
+  // Extra cross-links (optional)
+  addEdge(6, 11);
+  addEdge(2, 3); addEdge(2, 6); addEdge(3, 6);
+  addEdge(4, 3); addEdge(4, 8);
+  addEdge(5, 6);
+  addEdge(7, 2); addEdge(8, 2); addEdge(9, 2);
+  addEdge(10, 6); addEdge(12, 6);
 
-// ----------------------------------------------------
-// Paper cliques (THIS is the new part)
-// ----------------------------------------------------
+  // Paper A clique
+  addClique([1, 2, 4, 8, 13, 14], 2.6);
 
-// Paper A:
-// Masooma (4); Shekhar (1); Fanny (13); Wim (8); Gerard (14); Rohini (2)
-addClique([1, 2, 4, 8, 13, 14], 2.6);
-
-// Paper B:
-// Shekhar (1); Rohini (2); Claudia (15); Mariano (16); Stefan (17); Christian (7)
-addClique([1, 2, 7, 15, 16, 17], 2.6);
-</script>
+  // Paper B clique
+  addClique([1, 2, 7, 15, 16, 17], 2.6);
 
   const groups = {
     Center: { shape: "dot", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff" } },
@@ -593,6 +591,12 @@ addClique([1, 2, 7, 15, 16, 17], 2.6);
     network.fit({ animation: { duration: 600, easingFunction: "easeInOutQuad" } });
   });
 
+  const restoreAll = () => {
+    nodes.clear(); edges.clear();
+    nodes.add(ALL_NODES);
+    edges.add(ALL_EDGES);
+  };
+
   const dimAll = (opacity = 0.12) => {
     nodes.forEach(n => nodes.update({
       id: n.id,
@@ -600,12 +604,6 @@ addClique([1, 2, 7, 15, 16, 17], 2.6);
       font: { ...(n.font || {}), color: "rgba(0,0,0,.35)" }
     }));
     edges.forEach(e => edges.update({ id: e.id, color: { color: `rgba(0,0,0,${opacity})` } }));
-  };
-
-  const restoreAll = () => {
-    nodes.clear(); edges.clear();
-    nodes.add(ALL_NODES);
-    edges.add(ALL_EDGES);
   };
 
   const spotlight = (nodeId) => {
@@ -652,6 +650,7 @@ addClique([1, 2, 7, 15, 16, 17], 2.6);
     network.focus(id, { scale: 1.25, animation: { duration: 450, easingFunction: "easeInOutQuad" } });
   });
 
+  // Controls
   let physicsOn = false;
   const btnPhysics = document.getElementById("btnPhysics");
 
@@ -707,6 +706,7 @@ addClique([1, 2, 7, 15, 16, 17], 2.6);
     network.fit({ animation: { duration: 350, easingFunction: "easeInOutQuad" } });
   };
   groupChecks.forEach(c => c.addEventListener("change", applyFilters));
+})();
 </script>
 
 
