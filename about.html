@@ -478,15 +478,59 @@
     { id: 9, label: "Karsten Rinke",     group: "Collaborator", title: "Collaboration" },
     { id: 10, label: "Divya Upadhyay",   group: "Collaborator", title: "Collaboration" },
     { id: 11, label: "Subimal Ghosh",    group: "Collaborator", title: "Collaboration" },
-    { id: 12, label: "Shaonli",          group: "Mentored",     title: "Collaboration / mentoring" }
+    { id: 12, label: "Shaonli",          group: "Mentored",     title: "Collaboration / mentoring" },
+    { id: 13, label: "Fanny J. Sarrazin", group: "Coauthor", title: "Co-author" },
+   { id: 14, label: "Gerard H. Ros",     group: "Coauthor", title: "Co-author" },
+  { id: 15, label: "Claudia Giardino",  group: "Coauthor", title: "Co-author" },
+  { id: 16, label: "Mariano Bresciani", group: "Coauthor", title: "Co-author" },
+  { id: 17, label: "Stefan Mühlbauer",  group: "Coauthor", title: "Co-author" }
   ];
 
-  const ALL_EDGES = [
-    ...[2,3,4,5,6,7,8,9,10,11,12].map(id => ({ from: 1, to: id, width: 2 })),
-    { from: 6, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
-    { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 }, { from: 7, to: 2 },
-    { from: 8, to: 2 }, { from: 9, to: 2 }, { from: 10, to: 6 }, { from: 12, to: 6 }
-  ];
+<script>
+const ALL_EDGES = [];
+const _seen = new Set();
+
+function addEdge(a, b, width = 2) {
+  const x = Math.min(a, b), y = Math.max(a, b);
+  const key = `${x}-${y}`;
+  if (_seen.has(key)) return;
+  _seen.add(key);
+  ALL_EDGES.push({ from: x, to: y, width });
+}
+
+function addClique(ids, width = 2) {
+  for (let i = 0; i < ids.length; i++) {
+    for (let j = i + 1; j < ids.length; j++) {
+      addEdge(ids[i], ids[j], width);
+    }
+  }
+}
+
+// ----------------------------------------------------
+// Keep your original “base connectivity” (optional)
+// ----------------------------------------------------
+[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17].forEach(id => addEdge(1, id, 2));
+
+// Your previous cross-links (add what you want to keep)
+addEdge(6, 11);
+addEdge(2, 3); addEdge(2, 6); addEdge(3, 6);
+addEdge(4, 3); addEdge(4, 8);
+addEdge(5, 6);
+addEdge(7, 2); addEdge(8, 2); addEdge(9, 2);
+addEdge(10, 6); addEdge(12, 6);
+
+// ----------------------------------------------------
+// Paper cliques (THIS is the new part)
+// ----------------------------------------------------
+
+// Paper A:
+// Masooma (4); Shekhar (1); Fanny (13); Wim (8); Gerard (14); Rohini (2)
+addClique([1, 2, 4, 8, 13, 14], 2.6);
+
+// Paper B:
+// Shekhar (1); Rohini (2); Claudia (15); Mariano (16); Stefan (17); Christian (7)
+addClique([1, 2, 7, 15, 16, 17], 2.6);
+</script>
 
   const groups = {
     Center: { shape: "dot", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff" } },
