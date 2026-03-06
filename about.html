@@ -116,12 +116,7 @@
 .network-controls .left, .network-controls .right{
   display:flex; gap:10px; align-items:center; flex-wrap:wrap;
 }
-.network-controls input[type="text"]{
-  padding:10px 12px; border-radius:12px;
-  border:1px solid rgba(0,0,0,.15);
-  min-width: 240px;
-  outline: none;
-}
+
 .chip{
   display:inline-flex; align-items:center; gap:8px;
   padding:8px 10px; border-radius:999px;
@@ -425,7 +420,6 @@
   <div class="network-card">
     <div class="network-controls">
       <div class="left">
-        <input id="networkSearch" type="text" placeholder="Search collaborator (e.g., Rohini Kumar)..." />
         <button class="btn" id="btnFit">Fit</button>
         <button class="btn" id="btnShuffle">Shuffle</button>
         <button class="btn" id="btnPhysics">Physics: On</button>
@@ -675,21 +669,7 @@
     btnPhysics.textContent = `Physics: ${physicsOn ? "On" : "Off"}`;
   });
 
-  const searchInput = document.getElementById("networkSearch");
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter") return;
-    const q = searchInput.value.trim().toLowerCase();
-    if (!q) return;
-
-    const found = ALL_NODES.find(n => (n.label || "").toLowerCase().includes(q));
-    if (!found) {
-      detailsBox.innerHTML = `<h3>No match</h3><p class="muted">Try a shorter query (e.g., “Rohini”).</p>`;
-      return;
-    }
-    spotlight(found.id);
-    network.selectNodes([found.id]);
-    network.focus(found.id, { scale: 1.35, animation: { duration: 450, easingFunction: "easeInOutQuad" } });
-  });
+ 
 
   const groupChecks = Array.from(document.querySelectorAll(".groupFilter"));
   const applyFilters = () => {
