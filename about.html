@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.css" rel="stylesheet" />
-
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -89,14 +89,67 @@
       color: #0077aa;
     }
 
-    #network {
-      height: 500px;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background: #f0f8ff;
-      margin-top: 1rem;
-    }
+.network-card{
+  background: linear-gradient(180deg, rgba(0,92,153,.06), rgba(0,92,153,.02));
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  padding: 14px;
+}
+
+#network{
+  height: 560px;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.10);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(0,92,153,.10), transparent 40%),
+    radial-gradient(circle at 80% 85%, rgba(255,153,0,.10), transparent 45%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.80));
+  margin-top: 12px;
+}
+
+.network-controls{
+  display:flex; flex-wrap:wrap; gap:10px;
+  align-items:center; justify-content:space-between;
+  margin: 0 0 12px 0;
+}
+.network-controls .left, .network-controls .right{
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+}
+.network-controls input[type="text"]{
+  padding:10px 12px; border-radius:12px;
+  border:1px solid rgba(0,0,0,.15);
+  min-width: 240px;
+  outline: none;
+}
+.chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 10px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  font-size: 14px;
+  user-select:none;
+}
+.btn{
+  padding:10px 12px; border-radius:12px;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff; cursor:pointer;
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+.btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,.10); }
+.btn:active{ transform: translateY(0px); box-shadow:none; }
+
+.details{
+  margin-top: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.86);
+  border: 1px solid rgba(0,0,0,.10);
+  padding: 12px 14px;
+}
+.details h3{ margin: 0 0 6px 0; font-size: 16px; }
+.details p{ margin: 0; color: rgba(0,0,0,.72); line-height: 1.35; }
+.muted{ color: rgba(0,0,0,.55); font-size: 13px; }
 
     footer {
       text-align: center;
@@ -366,11 +419,36 @@
   </ul>
 </section>
 
+    
+<section>
+  <h2>Collaborative Network</h2>
 
-    <section>
-      <h2>Collaborative Network</h2>
-      <div id="network"></div>
-    </section>
+  <div class="network-card">
+    <div class="network-controls">
+      <div class="left">
+        <input id="networkSearch" type="text" placeholder="Search collaborator (e.g., Rohini Kumar)..." />
+        <button class="btn" id="btnFit">Fit</button>
+        <button class="btn" id="btnShuffle">Shuffle</button>
+        <button class="btn" id="btnPhysics">Physics: On</button>
+      </div>
+
+      <div class="right">
+        <label class="chip"><input type="checkbox" class="groupFilter" value="Coauthor" checked /> Co-authors</label>
+        <label class="chip"><input type="checkbox" class="groupFilter" value="Collaborator" checked /> Collaborators</label>
+        <label class="chip"><input type="checkbox" class="groupFilter" value="Mentored" checked /> Mentored</label>
+      </div>
+    </div>
+
+    <div id="network"></div>
+
+    <div class="details" id="networkDetails">
+      <h3>Click a node</h3>
+      <p class="muted">Tip: drag nodes, scroll to zoom, click to spotlight connections.</p>
+    </div>
+  </div>
+</section>
+
+    
   </main>
 
   <footer>
@@ -378,46 +456,213 @@
   </footer>
 
 <script>
-  const nodes = new vis.DataSet([
-    { id: 1, label: "Shekhar Sharan Goyal", shape: "circle", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff", size: 22 }, size: 30 },
-    { id: 2, label: "Rohini Kumar" }, { id: 3, label: "Raviraj Dave" }, { id: 4, label: "Masooma Batool" },
-    { id: 5, label: "Adrija Datta" }, { id: 6, label: "Udit Bhatia" }, { id: 7, label: "Christian Schmidt" },
-    { id: 8, label: "Wim de Vries" }, { id: 9, label: "Karsten Rinke" }, { id: 10, label: "Divya Upadhyay" },
-    { id: 11, label: "Subimal Ghosh" }, { id: 12, label: "Shaonli" }
-  ]);
-
-  const edges = new vis.DataSet([
-    { from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }, { from: 1, to: 5 }, { from: 1, to: 6 },
-    { from: 1, to: 7 }, { from: 1, to: 8 }, { from: 1, to: 9 }, { from: 1, to: 10 }, { from: 1, to: 11 },
-    { from: 1, to: 12 }, { from: 6, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
-    { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 }, { from: 7, to: 2 }, { from: 8, to: 2 },
-    { from: 9, to: 2 }, { from: 10, to: 6 }, { from: 12, to: 6 }
-  ]);
-
-  const container = document.getElementById('network');
-  const data = { nodes, edges };
-
-  const options = {
-    layout: { improvedLayout: true, randomSeed: 42 },
-    physics: {
-      solver: "forceAtlas2Based",
-      stabilization: { iterations: 150 },
-      forceAtlas2Based: {
-        gravitationalConstant: -50,
-        springLength: 150,
-        damping: 0.4
-      }
+  const ALL_NODES = [
+    {
+      id: 1,
+      label: "Shekhar Sharan Goyal",
+      group: "Center",
+      title: "That’s you 👑\nClick others to spotlight collaborations.",
+      shape: "dot",
+      size: 34,
+      color: { background: "#005c99", border: "#003366", highlight: { background: "#0077cc", border: "#003366" } },
+      font: { color: "#fff", size: 20, face: "Segoe UI" },
+      shadow: { enabled: true, size: 14, x: 0, y: 6 }
     },
-    interaction: {
-      hover: true,
-      tooltipDelay: 100,
-      navigationButtons: true,
-      keyboard: true
+    { id: 2, label: "Rohini Kumar",      group: "Coauthor",     title: "Co-author / collaborator" },
+    { id: 3, label: "Raviraj Dave",      group: "Collaborator", title: "Session / research collaboration" },
+    { id: 4, label: "Masooma Batool",    group: "Mentored",     title: "Mentoring / project collaboration" },
+    { id: 5, label: "Adrija Datta",      group: "Mentored",     title: "Mentoring / research collaboration" },
+    { id: 6, label: "Udit Bhatia",       group: "Coauthor",     title: "Co-author / collaboration" },
+    { id: 7, label: "Christian Schmidt", group: "Collaborator", title: "Collaboration" },
+    { id: 8, label: "Wim de Vries",      group: "Coauthor",     title: "Co-author / collaboration" },
+    { id: 9, label: "Karsten Rinke",     group: "Collaborator", title: "Collaboration" },
+    { id: 10, label: "Divya Upadhyay",   group: "Collaborator", title: "Collaboration" },
+    { id: 11, label: "Subimal Ghosh",    group: "Collaborator", title: "Collaboration" },
+    { id: 12, label: "Shaonli",          group: "Mentored",     title: "Collaboration / mentoring" }
+  ];
+
+  const ALL_EDGES = [
+    ...[2,3,4,5,6,7,8,9,10,11,12].map(id => ({ from: 1, to: id, width: 2 })),
+    { from: 6, to: 11 }, { from: 2, to: 3 }, { from: 2, to: 6 }, { from: 3, to: 6 },
+    { from: 4, to: 3 }, { from: 4, to: 8 }, { from: 5, to: 6 }, { from: 7, to: 2 },
+    { from: 8, to: 2 }, { from: 9, to: 2 }, { from: 10, to: 6 }, { from: 12, to: 6 }
+  ];
+
+  const groups = {
+    Center: { shape: "dot", color: { background: "#005c99", border: "#003366" }, font: { color: "#fff" } },
+    Coauthor: {
+      shape: "dot", size: 22,
+      color: { background: "#2E7D32", border: "#1B5E20", highlight: { background: "#43A047", border: "#1B5E20" } },
+      font: { color: "#111", size: 14, face: "Segoe UI" },
+      shadow: { enabled: true, size: 10, x: 0, y: 5 }
+    },
+    Collaborator: {
+      shape: "dot", size: 20,
+      color: { background: "#6A1B9A", border: "#4A148C", highlight: { background: "#8E24AA", border: "#4A148C" } },
+      font: { color: "#111", size: 14, face: "Segoe UI" },
+      shadow: { enabled: true, size: 10, x: 0, y: 5 }
+    },
+    Mentored: {
+      shape: "dot", size: 19,
+      color: { background: "#EF6C00", border: "#E65100", highlight: { background: "#FB8C00", border: "#E65100" } },
+      font: { color: "#111", size: 14, face: "Segoe UI" },
+      shadow: { enabled: true, size: 10, x: 0, y: 5 }
     }
   };
 
-  console.log("Initializing vis-network...");
-  new vis.Network(container, data, options);
+  const container = document.getElementById("network");
+  const detailsBox = document.getElementById("networkDetails");
+
+  const nodes = new vis.DataSet(ALL_NODES);
+  const edges = new vis.DataSet(ALL_EDGES);
+
+  const options = {
+    autoResize: true,
+    layout: { improvedLayout: true, randomSeed: 42 },
+    nodes: { borderWidth: 2, font: { face: "Segoe UI", size: 14 } },
+    edges: {
+      smooth: { type: "dynamic" },
+      color: { color: "rgba(0,0,0,.25)", highlight: "rgba(0,92,153,.70)" },
+      hoverWidth: 2, selectionWidth: 2
+    },
+    groups,
+    physics: {
+      enabled: true,
+      solver: "forceAtlas2Based",
+      stabilization: { iterations: 180, updateInterval: 25 },
+      forceAtlas2Based: {
+        gravitationalConstant: -55,
+        centralGravity: 0.01,
+        springLength: 150,
+        springConstant: 0.04,
+        damping: 0.45,
+        avoidOverlap: 1
+      }
+    },
+    interaction: { hover: true, tooltipDelay: 80, navigationButtons: true, keyboard: true }
+  };
+
+  const network = new vis.Network(container, { nodes, edges }, options);
+
+  network.once("stabilizationIterationsDone", () => {
+    network.setOptions({ physics: { enabled: false } });
+    network.fit({ animation: { duration: 600, easingFunction: "easeInOutQuad" } });
+  });
+
+  const dimAll = (opacity = 0.12) => {
+    nodes.forEach(n => nodes.update({
+      id: n.id,
+      color: { ...(n.color || {}), opacity },
+      font: { ...(n.font || {}), color: "rgba(0,0,0,.35)" }
+    }));
+    edges.forEach(e => edges.update({ id: e.id, color: { color: `rgba(0,0,0,${opacity})` } }));
+  };
+
+  const restoreAll = () => {
+    nodes.clear(); edges.clear();
+    nodes.add(ALL_NODES);
+    edges.add(ALL_EDGES);
+  };
+
+  const spotlight = (nodeId) => {
+    restoreAll();
+    dimAll(0.10);
+
+    const connected = new Set(network.getConnectedNodes(nodeId));
+    connected.add(nodeId);
+
+    connected.forEach(id => {
+      const n = nodes.get(id);
+      if (!n) return;
+      nodes.update({
+        id,
+        color: { ...(n.color || {}), opacity: 1 },
+        font: { ...(n.font || {}), color: (id === 1 ? "#fff" : "#111") }
+      });
+    });
+
+    network.getConnectedEdges(nodeId).forEach(eid => {
+      edges.update({ id: eid, color: { color: "rgba(0,92,153,.65)" }, width: 2.6 });
+    });
+  };
+
+  network.on("click", (params) => {
+    if (!params.nodes.length) {
+      restoreAll();
+      detailsBox.innerHTML = `<h3>Click a node</h3><p class="muted">Tip: drag nodes, scroll to zoom, click to spotlight connections.</p>`;
+      return;
+    }
+    const id = params.nodes[0];
+    const n = nodes.get(id);
+    spotlight(id);
+
+    const group = n.group && n.group !== "Center" ? n.group : "Center";
+    const connections = network.getConnectedNodes(id).length;
+
+    detailsBox.innerHTML = `
+      <h3>${n.label}</h3>
+      <p><strong>Role:</strong> ${group}</p>
+      <p><strong>Connections shown:</strong> ${connections}</p>
+      <p class="muted">${(n.title || "").toString().replaceAll("\n","<br/>")}</p>
+    `;
+    network.focus(id, { scale: 1.25, animation: { duration: 450, easingFunction: "easeInOutQuad" } });
+  });
+
+  let physicsOn = false;
+  const btnPhysics = document.getElementById("btnPhysics");
+
+  document.getElementById("btnFit").addEventListener("click", () => {
+    network.fit({ animation: { duration: 500, easingFunction: "easeInOutQuad" } });
+  });
+
+  document.getElementById("btnShuffle").addEventListener("click", () => {
+    network.setOptions({ physics: { enabled: true } });
+    physicsOn = true;
+    btnPhysics.textContent = "Physics: On";
+    setTimeout(() => {
+      network.setOptions({ physics: { enabled: false } });
+      physicsOn = false;
+      btnPhysics.textContent = "Physics: Off";
+    }, 900);
+  });
+
+  btnPhysics.addEventListener("click", () => {
+    physicsOn = !physicsOn;
+    network.setOptions({ physics: { enabled: physicsOn } });
+    btnPhysics.textContent = `Physics: ${physicsOn ? "On" : "Off"}`;
+  });
+
+  const searchInput = document.getElementById("networkSearch");
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) return;
+
+    const found = ALL_NODES.find(n => (n.label || "").toLowerCase().includes(q));
+    if (!found) {
+      detailsBox.innerHTML = `<h3>No match</h3><p class="muted">Try a shorter query (e.g., “Rohini”).</p>`;
+      return;
+    }
+    spotlight(found.id);
+    network.selectNodes([found.id]);
+    network.focus(found.id, { scale: 1.35, animation: { duration: 450, easingFunction: "easeInOutQuad" } });
+  });
+
+  const groupChecks = Array.from(document.querySelectorAll(".groupFilter"));
+  const applyFilters = () => {
+    const enabled = new Set(groupChecks.filter(c => c.checked).map(c => c.value));
+    const filteredNodes = ALL_NODES.filter(n => n.id === 1 || enabled.has(n.group));
+    const allowedIds = new Set(filteredNodes.map(n => n.id));
+    const filteredEdges = ALL_EDGES.filter(e => allowedIds.has(e.from) && allowedIds.has(e.to));
+
+    nodes.clear(); edges.clear();
+    nodes.add(filteredNodes);
+    edges.add(filteredEdges);
+
+    detailsBox.innerHTML = `<h3>Filtered view</h3><p class="muted">Click a node to spotlight its neighborhood.</p>`;
+    network.fit({ animation: { duration: 350, easingFunction: "easeInOutQuad" } });
+  };
+  groupChecks.forEach(c => c.addEventListener("change", applyFilters));
 </script>
 
 
