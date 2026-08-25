@@ -377,279 +377,452 @@ button, input { font: inherit; }
 .publication-group-title.hidden { display: none; }
 
 /* =========================================================
-   MEDIA COVERAGE
+   RESEARCH IN THE NEWS
+   Scoped so it does not conflict with older outreach cards
 ========================================================= */
 
-.media-layout {
+#media-coverage .media-layout {
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: 1.6rem;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
+  gap: 24px;
   align-items: stretch;
+  margin-top: 34px;
 }
 
 
-/* ---------- Featured ---------- */
+/* =========================================================
+   FEATURED PHYS.ORG STORY
+========================================================= */
 
-.media-featured {
-  background: #123f39;
-  color: #fff;
-  border-radius: 4px;
+#media-coverage .media-featured {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+
+  background: var(--green-900);
+  color: #ffffff;
+
+  border: 1px solid var(--green-900);
+  border-radius: 10px;
+
+  box-shadow: 0 18px 45px rgba(20, 63, 57, 0.12);
 }
 
-.media-featured-top {
+
+#media-coverage .media-featured-top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.16);
+  justify-content: space-between;
+  gap: 18px;
+
+  padding: 18px 26px;
+
+  background: rgba(255, 255, 255, 0.035);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-.media-featured-body {
-  padding: 2.2rem;
+
+#media-coverage .media-featured-body {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1;
+
+  padding: 36px 36px 32px;
 }
 
-.media-featured-label {
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  font-size: 0.76rem;
+
+#media-coverage .media-featured-label {
+  margin-bottom: 15px;
+
+  color: #c6ddd7;
+
+  font-size: 11px;
   font-weight: 700;
-  color: #c7ddd7;
-  margin-bottom: 1rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
 }
 
-.media-featured h3 {
-  margin: 0 0 1.2rem;
-  max-width: 850px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.7rem, 2.5vw, 2.45rem);
+
+#media-coverage .media-featured h3 {
+  max-width: 780px;
+
+  margin: 0 0 19px;
+
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: clamp(27px, 3vw, 39px);
+  font-weight: 700;
   line-height: 1.15;
+  letter-spacing: -0.018em;
 }
 
-.media-featured h3 a {
-  color: #fff;
+
+#media-coverage .media-featured h3 a {
+  color: #ffffff;
   text-decoration: none;
 }
 
-.media-featured h3 a:hover {
+
+#media-coverage .media-featured h3 a:hover {
+  color: #ffffff;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 5px;
 }
 
-.media-featured p {
-  color: #e0ebe8;
-  line-height: 1.7;
-  font-size: 1rem;
+
+#media-coverage .media-featured p {
   max-width: 760px;
+
+  margin: 0 0 18px;
+
+  color: #dbe9e6;
+
+  font-size: 15px;
+  line-height: 1.75;
 }
 
-.media-quote {
-  margin: 1.6rem 0;
-  padding: 0 0 0 1.25rem;
-  border-left: 3px solid #b6d646;
-  color: #fff;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.18rem;
-  line-height: 1.5;
+
+#media-coverage .media-quote {
+  margin: 10px 0 28px;
+  padding: 5px 0 5px 21px;
+
+  border-left: 3px solid #bad95a;
+
+  color: #ffffff;
+
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.55;
 }
 
-.media-featured-footer {
-  margin-top: auto;
-  padding-top: 1.5rem;
+
+#media-coverage .media-featured-footer {
   display: flex;
-  gap: 1rem;
-  justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(255,255,255,0.14);
-  color: #c7d7d3;
-  font-size: 0.85rem;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-top: auto;
+  padding-top: 21px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+
+  color: #bfd3ce;
+
+  font-size: 12px;
 }
 
 
-/* ---------- Source labels ---------- */
+#media-coverage .media-featured-footer em {
+  color: #ffffff;
+}
 
-.media-source {
-  font-size: 0.76rem;
+
+/* =========================================================
+   SOURCE / DATE
+========================================================= */
+
+#media-coverage .media-source {
+  color: var(--green-700);
+
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: #14564d;
-}
-
-.media-featured .media-source {
-  color: #fff;
-}
-
-.media-source.phys {
-  font-size: 1rem;
-  letter-spacing: 0.04em;
-}
-
-.media-source.toi {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.95rem;
-  letter-spacing: 0;
-  color: #152d29;
-}
-
-.media-date {
-  color: #75827f;
-  font-size: 0.78rem;
-}
-
-.media-featured .media-date {
-  color: #c8d8d4;
-}
-
-
-/* ---------- Side cards ---------- */
-
-.media-side {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.6rem;
-}
-
-.media-card {
-  border: 1px solid #d9e1de;
-  background: #fff;
-  padding: 1.55rem;
-  display: flex;
-  flex-direction: column;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.media-card:hover {
-  transform: translateY(-3px);
-  border-color: #aac3bc;
-  box-shadow: 0 10px 30px rgba(20, 63, 57, 0.08);
-}
-
-.media-card-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.media-tag {
-  width: fit-content;
-  margin-bottom: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  background: #edf4f1;
-  color: #37645b;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.045em;
   text-transform: uppercase;
 }
 
-.media-card h3 {
-  margin: 0 0 0.8rem;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.3rem;
+
+#media-coverage .media-featured .media-source {
+  color: #ffffff;
+}
+
+
+#media-coverage .media-source.phys {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+
+#media-coverage .media-date {
+  color: #71827e;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+#media-coverage .media-featured .media-date {
+  color: #c7d9d5;
+}
+
+
+/* =========================================================
+   BIOENGINEER / BLUNT TIMES COLUMN
+========================================================= */
+
+#media-coverage .media-side {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+
+#media-coverage .media-card {
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px;
+
+  overflow: visible;
+
+  background: #ffffff;
+
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+#media-coverage .media-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #aac4bd;
+
+  box-shadow: 0 14px 30px rgba(20, 63, 57, 0.075);
+}
+
+
+#media-coverage .media-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  margin-bottom: 14px;
+}
+
+
+#media-coverage .media-tag {
+  display: inline-flex;
+  width: fit-content;
+
+  margin-bottom: 12px;
+  padding: 5px 8px;
+
+  background: var(--green-100);
+  color: var(--green-800);
+
+  border-radius: 4px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+
+#media-coverage .media-card h3 {
+  margin: 0 0 11px;
+
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 19px;
   line-height: 1.3;
 }
 
-.media-card h3 a {
-  color: #103e37;
+
+#media-coverage .media-card h3 a {
+  color: var(--green-900);
   text-decoration: none;
 }
 
-.media-card h3 a:hover {
+
+#media-coverage .media-card h3 a:hover {
+  color: var(--green-700);
+
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
 }
 
-.media-card p {
-  margin: 0 0 1.25rem;
-  color: #53615e;
+
+#media-coverage .media-card p {
+  margin: 0 0 16px;
+
+  color: var(--ink-soft);
+
+  font-size: 13px;
   line-height: 1.65;
-  font-size: 0.92rem;
 }
 
-.media-read {
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+#media-coverage .media-read {
+  display: inline-flex;
+  align-items: center;
+
   margin-top: auto;
-  font-size: 0.84rem;
+
+  color: var(--green-700);
+
+  font-size: 12px;
   font-weight: 700;
-  color: #0c6959;
+
   text-decoration: none;
 }
 
-.media-read:hover {
+
+#media-coverage .media-read:hover {
+  color: var(--green-900);
   text-decoration: underline;
 }
 
 
-/* ---------- Earlier coverage ---------- */
-
-.media-earlier-head {
-  margin-top: 3.5rem;
-  margin-bottom: 1.4rem;
-  padding-top: 2.2rem;
-  border-top: 1px solid #dbe3e0;
+#media-coverage .media-featured .media-read {
+  color: #ffffff;
 }
 
-.media-earlier-head h3 {
+
+/* =========================================================
+   EARLIER COVERAGE
+========================================================= */
+
+#media-coverage .media-earlier-head {
+  margin-top: 52px;
+  margin-bottom: 20px;
+  padding-top: 30px;
+
+  border-top: 1px solid var(--line);
+}
+
+
+#media-coverage .media-earlier-head .page-kicker {
+  margin-bottom: 5px;
+}
+
+
+#media-coverage .media-earlier-head h3 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  color: #103e37;
-  font-size: 1.55rem;
+
+  color: var(--green-900);
+
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 24px;
+  line-height: 1.25;
 }
 
-.media-grid {
+
+/* =========================================================
+   TIMES OF INDIA CARDS
+========================================================= */
+
+#media-coverage .media-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
 }
 
-.media-card-horizontal {
-  min-height: 270px;
+
+#media-coverage .media-card-horizontal {
+  min-height: 235px;
 }
 
 
-/* ---------- Responsive ---------- */
+#media-coverage .media-source.toi {
+  color: var(--ink);
 
-@media (max-width: 950px) {
+  font-family: "Source Serif 4", Georgia, serif;
 
-  .media-layout {
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0;
+}
+
+
+/* =========================================================
+   OPTIONAL SMALL PUBLICATION CONNECTION
+========================================================= */
+
+#media-coverage .media-paper-link {
+  display: inline-flex;
+  width: fit-content;
+
+  margin-top: 13px;
+  padding: 6px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+#media-coverage .media-paper-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  #media-coverage .media-layout {
     grid-template-columns: 1fr;
   }
 
-  .media-side {
-    grid-template-columns: repeat(2, 1fr);
+  #media-coverage .media-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
 }
+
 
 @media (max-width: 700px) {
 
-  .media-side,
-  .media-grid {
+  #media-coverage .media-side,
+  #media-coverage .media-grid {
     grid-template-columns: 1fr;
   }
 
-  .media-featured-body {
-    padding: 1.5rem;
+  #media-coverage .media-featured-body {
+    padding: 27px 22px;
   }
 
-  .media-featured-footer {
-    align-items: flex-start;
+  #media-coverage .media-featured-top {
+    padding: 15px 22px;
+  }
+
+  #media-coverage .media-featured h3 {
+    font-size: 26px;
+  }
+
+  #media-coverage .media-featured-footer {
     flex-direction: column;
+    align-items: flex-start;
   }
 
-  .media-featured h3 {
-    font-size: 1.7rem;
+  #media-coverage .media-card {
+    padding: 21px;
   }
+
 }
-
